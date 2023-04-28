@@ -1,0 +1,65 @@
+package model;
+import java.util.Calendar;
+
+public abstract class BibliographicProduct {
+    private String id;
+    private String name;
+    private String url;
+    private int pages;
+    private Calendar publication;
+    private double value;
+    private int pagesRead;
+
+    public BibliographicProduct(String id, String name, String url,int pages, Calendar publication, double value, int pagesRead) {
+        this.id = id;
+        this.name = name;
+        this.url = url;
+        this.pages = pages;
+        this.publication = publication;
+        this.value = value;
+        this.pagesRead = pagesRead;
+    }
+
+    public String getId() {
+        return id;
+    }
+    public void setId(String id) {
+        this.id = id;
+    }
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public String getUrl() {
+        return url;
+    }
+    public void setUrl(String url) {
+        this.url = url;
+    }
+    public int getPages() {
+        return pages;
+    }
+    public void setPages(int pages) {
+        this.pages = pages;
+    }
+    public Calendar getPublication() {
+        return publication;
+    }
+    public void setPublication(Calendar publication) {
+        this.publication = publication;
+    }
+    public double getValue() {
+        return value;
+    }
+    public void setValue(double value) {
+        this.value = value;
+    }
+    public int getPagesRead() {
+        return pagesRead;
+    }
+    public void setPagesRead(int pagesRead) {
+        this.pagesRead = pagesRead;
+    }
+}
