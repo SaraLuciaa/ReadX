@@ -1,4 +1,5 @@
 package model;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public abstract class BibliographicProduct {
@@ -61,5 +62,10 @@ public abstract class BibliographicProduct {
     }
     public void setPagesRead(int pagesRead) {
         this.pagesRead = pagesRead;
+    }
+
+    public String toString() {
+        SimpleDateFormat timeStamp = new SimpleDateFormat("dd-MM-yyyy");
+        return "Id: " + id + "\nName: " + name + "\nUrl: " + url + "\nPages: " + pages + "\nDate of publication: " + timeStamp.format(publication.getTime()) + "\nValue: " + value + "\nNumber of pages read: " + pagesRead;
     }
 }

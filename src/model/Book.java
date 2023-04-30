@@ -6,8 +6,7 @@ public class Book extends BibliographicProduct{
     private int copiesSold;
     private Genre genre;
 
-    public Book(String id, String name, String url, int pages, Calendar publication, double value, int pagesRead,
-            String review, int copiesSold, Genre genre) {
+    public Book(String id, String name, String url, int pages, Calendar publication, double value, int pagesRead, String review, int copiesSold, Genre genre) {
         super(id, name, url, pages, publication, value, pagesRead);
         this.review = review;
         this.copiesSold = copiesSold;
@@ -31,5 +30,10 @@ public class Book extends BibliographicProduct{
     }
     public void setGenre(Genre genre) {
         this.genre = genre;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + "\nReview: " + review + "\nNumber of copies sold: " + copiesSold + "\nGenre: " + genre;
     }
 }
