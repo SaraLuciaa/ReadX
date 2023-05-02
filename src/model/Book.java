@@ -6,11 +6,11 @@ public class Book extends BibliographicProduct{
     private int copiesSold;
     private Genre genre;
 
-    public Book(String id, String name, String url, int pages, Calendar publication, double value, int pagesRead, String review, int copiesSold, Genre genre) {
+    public Book(String id, String name, String url, int pages, Calendar publication, double value, int pagesRead, String review, int copiesSold, int genre) {
         super(id, name, url, pages, publication, value, pagesRead);
         this.review = review;
         this.copiesSold = copiesSold;
-        this.genre = genre;
+        this.genre = Genre.values()[genre-1];
     }
 
     public String getReview() {
@@ -28,12 +28,19 @@ public class Book extends BibliographicProduct{
     public Genre getGenre() {
         return genre;
     }
-    public void setGenre(Genre genre) {
-        this.genre = genre;
+    public void setGenre(int genre) {
+        this.genre = Genre.values()[genre-1];
     }
 
     @Override
     public String toString() {
         return super.toString() + "\nReview: " + review + "\nNumber of copies sold: " + copiesSold + "\nGenre: " + genre;
+    }
+
+    public void updateBook(String name, String url, int pages, Calendar publication, double value, int pagesRead, String review, int copiesSold, int genre){
+        super.updateBP(name, url, pages, publication, value, pagesRead);
+        this.review = review.equals("-1")|review.equals("")?this.review:review;
+        this.copiesSold = copiesSold==-1?this.copiesSold:copiesSold;
+        this.genre = genre==-1?this.genre:Genre.values()[genre-1];
     }
 }

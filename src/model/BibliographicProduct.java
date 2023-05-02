@@ -68,4 +68,13 @@ public abstract class BibliographicProduct {
         SimpleDateFormat timeStamp = new SimpleDateFormat("dd-MM-yyyy");
         return "Id: " + id + "\nName: " + name + "\nUrl: " + url + "\nPages: " + pages + "\nDate of publication: " + timeStamp.format(publication.getTime()) + "\nValue: " + value + "\nNumber of pages read: " + pagesRead;
     }
+
+    public void updateBP(String name, String url,int pages, Calendar publication, double value, int pagesRead){
+        this.name = name.equals("-1")|name.equals("")?this.name:name;
+        this.url = id.equals("-1")|url.equals("")?this.id:id;
+        this.pages = pages==-1?this.pages:pages;
+        this.publication = publication;
+        this.value = value==-1?this.value:value;
+        this.pagesRead = pagesRead==-1?this.pagesRead:pagesRead;
+    }
 }

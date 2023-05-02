@@ -36,4 +36,11 @@ public class Magazine extends BibliographicProduct {
     public String toString(){
         return super.toString() + "\nCategory: " + category + "\nPeriodicity of emission: " + periodicityEmission + "\nNumber of active subscriptions: " + activeSubscriptions;
     }
+
+    public void updateMagazine(String name, String url, int pages, Calendar publication, double value, int pagesRead, int category, String periodicityEmission, int activeSubscriptions){
+        super.updateBP(name, url, pages, publication, value, pagesRead);
+        this.category = category==-1?this.category:Category.values()[category-1];
+        this.periodicityEmission = periodicityEmission.equals("-1")|periodicityEmission.equals("")?this.periodicityEmission:periodicityEmission;
+        this.activeSubscriptions = activeSubscriptions==-1?this.activeSubscriptions:activeSubscriptions;
+    }
 }
