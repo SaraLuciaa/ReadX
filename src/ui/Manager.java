@@ -35,14 +35,17 @@ public class Manager {
 		boolean status = true;
 		Scanner l = new Scanner(System.in);
 		while(status){
-			System.out.println("Choose the option:\n1.Add bibliographic product\n2.Update bibliographic product\n9.Back to main menu");
-			int opt = l.nextInt();
+			System.out.println("Choose the option:\n1.Add bibliographic product\n2.Update bibliographic product\n3.Remove bibliographic product\n9.Back to main menu");
+			int opt = l.nextInt();	
 			switch(opt){
 				case 1:
 					createBP();
 					break;
 				case 2: 
 					updateBP();	
+					break;
+				case 3:
+					removeBP();
 					break;
 				case 9: 
 					status = false;
@@ -157,6 +160,13 @@ public class Manager {
 		}
 	}
 
+	public void removeBP(){
+		Scanner l = new Scanner(System.in);
+		System.out.print("Id: ");
+		String id = l.nextLine();
+		System.out.println(readX.removeBP(id));
+	}
+	
 	public static void main(String[] args) {
 		Manager objManager = new Manager();
 		objManager.menu();

@@ -78,6 +78,18 @@ public class Controller {
         return message;
     }
 
+    public String removeBP(String id){
+        String message = "";
+        if(searchBP(id)!=null){
+            products.remove(searchBP(id));
+            message = "---Bibliographic product removed successfully---";
+        }
+        else {
+            message = "Non-existent bibliographic product.";
+        }
+        return message;
+    }
+
     public String toString(){
         String message = "";
         for(int i=0; i<products.size(); i++){
