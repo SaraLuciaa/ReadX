@@ -4,9 +4,11 @@ import java.util.Calendar;
 
 public class Controller {
     private ArrayList<BibliographicProduct> products;
+    private ArrayList<User> users;
 
     public Controller(){
         this.products = new ArrayList<BibliographicProduct>();
+        this.users = new ArrayList<User>();
     }
 
     public BibliographicProduct searchBP(String id){
@@ -104,5 +106,36 @@ public class Controller {
 
     public String showCategory(int i){
         return Category.values()[i].toString();
+    }
+
+    // ------------ Users ------------
+    public User searchUser(String id){
+        User user = null;
+        boolean search = true;
+        for(int i=0; i<users.size()&&search; i++){
+            if(users.get(i).getName().equalsIgnoreCase(id)){
+                user = users.get(i);
+                search = false;
+            }
+        }
+        return user;
+    }
+
+    public String createUser(int type, String name, String id){
+        String message = "";
+        User newU = searchUser(id);
+        if(newU==null){
+            if(type==1){
+                newU = new Regular(name, id);
+            } else {
+                newU = new Premium(name, id);
+            }
+            users.add(newU);
+            message = "----User created successfully----\n" + newU.toString() + "\n---------------------------------";
+        }
+        else {
+            message = "There is already a user with the entered ID.";
+        }
+        return message;
     }
 }

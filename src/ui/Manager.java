@@ -10,15 +10,18 @@ public class Manager {
         this.readX = new Controller();
     }
 
-    public void menu(){
+	public void menu(){
 		Scanner l = new Scanner(System.in);
         boolean status = true;	
 		while(status){
-			System.out.println("Choose the option:\n2.Manage bibliographic products\n9.Exit");
+			System.out.println("Who you are?\n1.User\n2.Manager ReadX\n9.Exit");
 			int opt = l.nextInt();
 			switch(opt){
-				case 2:
-					menuBP();
+				case 1:
+					menuUser();
+					break;
+				case 2: 
+					menuReadX();
 					break;
 				case 9: 
 					System.out.println(readX.toString());					
@@ -29,13 +32,56 @@ public class Manager {
 					break;
 			}
 		}
-    }
+	}
 
-	public void menuBP(){
+	public void menuUser(){
 		boolean status = true;
 		Scanner l = new Scanner(System.in);
 		while(status){
-			System.out.println("Choose the option:\n1.Add bibliographic product\n2.Update bibliographic product\n3.Remove bibliographic product\n9.Back to main menu");
+			System.out.println("Choose the option:\n1.Create user \n10.Exit");
+			int opt = l.nextInt();	
+			switch(opt){
+				case 1:
+					createUser();
+					break;
+				case 2:
+					break;
+				case 3:
+					break;
+				case 9: 
+					status = false;
+					break;
+				case 10:
+					System.exit(0);
+					break;
+				default:
+					System.out.println("Input invalid. Try again.");
+					break;
+			}
+		}
+	}
+
+	public void createUser(){
+		Scanner l = new Scanner(System.in);
+		System.out.println("Type of user: 1.REGULAR 2.PREMIUM");
+		int type = l.nextInt();
+		while(type!=1&&type!=2){
+			System.out.println("Input invalid. Try again");
+			type = l.nextInt();
+		}
+		l.nextLine();
+		System.out.print("Name: ");
+		String name = l.nextLine();
+		System.out.print("Id: ");
+		String id = l.nextLine();
+		System.out.println(readX.createUser(type, name, id));
+	}
+
+	public void menuReadX(){
+		boolean status = true;
+		Scanner l = new Scanner(System.in);
+		while(status){
+			System.out.println("Choose the option:\n1.Add bibliographic product\n2.Update bibliographic product\n3.Remove bibliographic product\n9.Back to main menu\n10.Exit");
 			int opt = l.nextInt();	
 			switch(opt){
 				case 1:
@@ -49,6 +95,9 @@ public class Manager {
 					break;
 				case 9: 
 					status = false;
+					break;
+				case 10:
+					System.exit(0);
 					break;
 				default:
 					System.out.println("Input invalid. Try again.");
