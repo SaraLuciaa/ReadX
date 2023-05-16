@@ -14,7 +14,7 @@ public class Manager {
 		Scanner l = new Scanner(System.in);
         boolean status = true;	
 		while(status){
-			System.out.println("Who you are?\n1.User\n2.New user\n3.Manager ReadX\n9.Exit");
+			System.out.println("Who you are?\n1.User\n2.New user\n3.Manager ReadX\n4.Generate objects\n9.Exit");
 			int opt = l.nextInt();
 			l.nextLine();
 			switch(opt){
@@ -28,6 +28,9 @@ public class Manager {
 					break;
 				case 3: 
 					menuReadX();
+					break;
+				case 4: 
+					System.out.println(readX.generateObjects());
 					break;
 				case 9: 
 					System.out.println(readX.toString());					

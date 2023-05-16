@@ -11,10 +11,11 @@ public class Regular extends User{
         this.maxMagazine =2;
     }
 
-    public void buyBP(double pay, BibliographicProduct newBP){
-        super.buyBP(pay, newBP);
+    public String buyBP(double pay, BibliographicProduct newBP){
+        String message = super.buyBP(pay, newBP);
         if(newBP instanceof Book){maxBook--;}
         else if(newBP instanceof Magazine){maxMagazine--;}
+        return message;
     }
 
     public boolean canBuy(int type){

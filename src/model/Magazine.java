@@ -6,9 +6,9 @@ public class Magazine extends BibliographicProduct {
     private String periodicityEmission;
     private int activeSubscriptions;
 
-    public Magazine(String id, String name, String url, int pages, Calendar publication, double value, int pagesRead, Category category, String periodicityEmission, int activeSubscriptions) {
+    public Magazine(String id, String name, String url, int pages, Calendar publication, double value, int pagesRead, int category, String periodicityEmission, int activeSubscriptions) {
         super(id, name, url, pages, publication, value, pagesRead);
-        this.category = category;
+        this.category = Category.values()[category-1];
         this.periodicityEmission = periodicityEmission;
         this.activeSubscriptions = activeSubscriptions;
     }

@@ -1,4 +1,5 @@
 package model;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -57,9 +58,11 @@ public abstract class User {
         this.payments = payments;
     }
 
-    public void buyBP(double pay, BibliographicProduct newBP){
+    public String buyBP(double pay, BibliographicProduct newBP){
+        SimpleDateFormat timeStamp = new SimpleDateFormat("dd-MM-yyyy");
         bp.add(newBP);
         Payment newP = new Payment(pay);
         payments.add(newP);
+        return "----------- Bill -----------\n" + newBP.getName() + "\nOperation date: " + timeStamp.format(newP.getDateOperation().getTime()) + "\nAmount paid: " + pay + "\n----------------------------";
     }
 }

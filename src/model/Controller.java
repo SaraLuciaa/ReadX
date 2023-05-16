@@ -13,12 +13,49 @@ public class Controller {
         this.payments = new ArrayList<Payment>();
     }
 
+    // -------- Automatically generate objects --------
+    public String generateObjects(){
+        // Bibliographic Products
+        Calendar publication1 = Calendar.getInstance();
+        publication1.set(2020, Calendar.AUGUST, 15);
+        Calendar publication2 = Calendar.getInstance();
+        publication2.set(2005, Calendar.NOVEMBER, 11);
+        Calendar publication3 = Calendar.getInstance();
+        publication3.set(2018, Calendar.MARCH, 22);
+
+        Book book1 = new Book("2A9","The Great Gatsby", "https://example.com/the-great-gatsby", 300, publication1, 19.99, 200, "A captivating story set in the 1920s.", 1000, 3);
+        products.add(book1);        
+        Book book2 = new Book("B0E", "1984", "https://example.com/1984", 350, publication2, 14.99, 150, "A dystopian masterpiece.", 2000, 1);
+        products.add(book2);
+        Book book3 = new Book("7C1", "Pride and Prejudice", "https://example.com/pride-and-prejudice", 250, publication3, 9.99, 200, "A classic love story with witty dialogue.", 3000, 2);
+        products.add(book3);
+
+        Magazine magazine1 = new Magazine("M01", "Entertainment Weekly", "https://www.entertainmentweekly.com", 70, publication1, 8.99, 50, 1, "Weekly", 2000);
+        products.add(magazine1);
+        Magazine magazine2 = new Magazine("M02", "Architectural Digest", "https://www.architecturaldigest.com", 90, publication2, 10.99, 20, 2, "Monthly", 800);
+        products.add(magazine2);
+        Magazine magazine3 = new Magazine("M03", "Science Today", "https://www.sciencetoday.com", 60, publication3, 7.99, 40, 3, "Bi-monthly", 500);
+        products.add(magazine3);
+
+        // Users
+        User user1 = new Regular("Alice", "123001");
+        users.add(user1);
+        User user2 = new Regular("Bob", "456002");
+        users.add(user2);
+        User user3 = new Premium("Carol", "789003");
+        users.add(user3);
+        User user4 = new Premium("David", "258004");
+        users.add(user4);
+
+        return toString();
+    }
+
     // ------------ Bibliographic Products ------------
     public BibliographicProduct searchBP(String id){
         BibliographicProduct product = null;
         boolean search = true;
         for(int i=0; i<products.size()&&search; i++){
-            if(products.get(i).getName().equalsIgnoreCase(id)){
+            if(products.get(i).getId().equalsIgnoreCase(id)){
                 product = products.get(i);
                 search = false;
             }
@@ -57,7 +94,7 @@ public class Controller {
     public String createBP(String id, String name, String url, int pages, Calendar publication, double value, int pagesRead, int category, String periodicityEmission, int activeSubscriptions){
         String message = "";
         if(searchBP(id)==null){
-            Magazine newM = new Magazine(id, name, url, pages, publication, value, pagesRead, Category.values()[category-1], periodicityEmission, activeSubscriptions);
+            Magazine newM = new Magazine(id, name, url, pages, publication, value, pagesRead, category, periodicityEmission, activeSubscriptions);
             products.add(newM);
             message = "\n----Magazine created successfully----\n" + newM.toString() + "\n---------------------------------";
         }
@@ -119,7 +156,7 @@ public class Controller {
         User user = null;
         boolean search = true;
         for(int i=0; i<users.size()&&search; i++){
-            if(users.get(i).getName().equalsIgnoreCase(id)){
+            if(users.get(i).getId().equalsIgnoreCase(id)){
                 user = users.get(i);
                 search = false;
             }
@@ -147,19 +184,19 @@ public class Controller {
 
     // ---Purchase of books or magazine subscriptions---
     public String buyBP(int type, String idUser, String idBP){
-        User user = searchUser(null);
+        User user = searchUser(idUser);
         String message = "";
         boolean buy = true;
         if(user instanceof Regular){
             Regular userR = (Regular) user;
             buy = userR.canBuy(type);
-        } else {
-            message = type==1?"Maximum number of books purchased":"Maximum number of active subscriptions";
         }
         BibliographicProduct bp = searchBP(idBP);
         if(buy&&bp!=null&&((type==1&&bp instanceof Book)||(type==2&&bp instanceof Magazine))){
             bp.sellBP();
-            user.buyBP(bp.getValue(), bp);
+            message = user.buyBP(bp.getValue(), bp);
+        } else if (!buy) {
+            message = type==1?"Maximum number of books purchased":"Maximum number of active subscriptions";
         } else {
             message = type==1?"Book not found":"Magazine Product not found";
         }
