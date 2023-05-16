@@ -58,11 +58,10 @@ public abstract class User {
         this.payments = payments;
     }
 
-    public String buyBP(double pay, BibliographicProduct newBP){
+    public String buyBP(Payment newP, BibliographicProduct newBP){
         SimpleDateFormat timeStamp = new SimpleDateFormat("dd-MM-yyyy");
         bp.add(newBP);
-        Payment newP = new Payment(pay);
         payments.add(newP);
-        return "----------- Bill -----------\n" + newBP.getName() + "\nOperation date: " + timeStamp.format(newP.getDateOperation().getTime()) + "\nAmount paid: " + pay + "\n----------------------------";
+        return "----------- Bill -----------\n" + newBP.getName() + "\nOperation date: " + timeStamp.format(newP.getDateOperation().getTime()) + "\nAmount paid: " + newP.getPay() + "\n----------------------------";
     }
 }

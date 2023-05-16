@@ -11,8 +11,8 @@ public class Regular extends User{
         this.maxMagazine =2;
     }
 
-    public String buyBP(double pay, BibliographicProduct newBP){
-        String message = super.buyBP(pay, newBP);
+    public String buyBP(Payment newP, BibliographicProduct newBP){
+        String message = super.buyBP(newP, newBP);
         if(newBP instanceof Book){maxBook--;}
         else if(newBP instanceof Magazine){maxMagazine--;}
         return message;

@@ -194,7 +194,9 @@ public class Controller {
         BibliographicProduct bp = searchBP(idBP);
         if(buy&&bp!=null&&((type==1&&bp instanceof Book)||(type==2&&bp instanceof Magazine))){
             bp.sellBP();
-            message = user.buyBP(bp.getValue(), bp);
+            Payment newP = new Payment(bp.getValue());
+            payments.add(newP);
+            message = user.buyBP(newP, bp);
         } else if (!buy) {
             message = type==1?"Maximum number of books purchased":"Maximum number of active subscriptions";
         } else {
