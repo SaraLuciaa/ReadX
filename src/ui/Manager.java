@@ -14,13 +14,19 @@ public class Manager {
 		Scanner l = new Scanner(System.in);
         boolean status = true;	
 		while(status){
-			System.out.println("Who you are?\n1.User\n2.Manager ReadX\n9.Exit");
+			System.out.println("Who you are?\n1.User\n2.New user\n3.Manager ReadX\n9.Exit");
 			int opt = l.nextInt();
+			l.nextLine();
 			switch(opt){
 				case 1:
-					menuUser();
+					System.out.print("Enter the id of the user: ");
+					String idUser = l.nextLine();
+					menuUser(idUser);
 					break;
-				case 2: 
+				case 2:
+					createUser();
+					break;
+				case 3: 
 					menuReadX();
 					break;
 				case 9: 
@@ -34,30 +40,33 @@ public class Manager {
 		}
 	}
 
-	public void menuUser(){
-		boolean status = true;
-		Scanner l = new Scanner(System.in);
-		while(status){
-			System.out.println("Choose the option:\n1.Create user \n10.Exit");
-			int opt = l.nextInt();	
-			switch(opt){
-				case 1:
-					createUser();
-					break;
-				case 2:
-					break;
-				case 3:
-					break;
-				case 9: 
-					status = false;
-					break;
-				case 10:
-					System.exit(0);
-					break;
-				default:
-					System.out.println("Input invalid. Try again.");
-					break;
+	public void menuUser(String id){
+		if(readX.searchUser(id)!=null){
+			boolean status = true;
+			Scanner l = new Scanner(System.in);
+			while(status){
+				System.out.println("Choose the option:\n1.Purchase book\n2.Subscribe to magazine\n10.Exit");
+				int opt = l.nextInt();	
+				switch(opt){
+					case 1:
+						buyBP(1, id);
+						break;
+					case 3:
+						buyBP(2, id);
+						break;
+					case 9: 
+						status = false;
+						break;
+					case 10:
+						System.exit(0);
+						break;
+					default:
+						System.out.println("Input invalid. Try again.");
+						break;
+				}
 			}
+		} else {
+			System.out.println("User not found");
 		}
 	}
 
@@ -216,6 +225,13 @@ public class Manager {
 		System.out.println(readX.removeBP(id));
 	}
 	
+	public void buyBP(int type, String idUser){
+		Scanner l = new Scanner(System.in);
+		System.out.print(type==1?"Book ID: ":"Magazine ID: ");
+		String idBP = l.nextLine();
+		System.out.println(readX.buyBP(type, idUser, idBP));
+	}
+
 	public static void main(String[] args) {
 		Manager objManager = new Manager();
 		objManager.menu();

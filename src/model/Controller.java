@@ -5,12 +5,15 @@ import java.util.Calendar;
 public class Controller {
     private ArrayList<BibliographicProduct> products;
     private ArrayList<User> users;
+    private ArrayList<Payment> payments;
 
     public Controller(){
         this.products = new ArrayList<BibliographicProduct>();
         this.users = new ArrayList<User>();
+        this.payments = new ArrayList<Payment>();
     }
 
+    // ------------ Bibliographic Products ------------
     public BibliographicProduct searchBP(String id){
         BibliographicProduct product = null;
         boolean search = true;
@@ -97,6 +100,9 @@ public class Controller {
         for(int i=0; i<products.size(); i++){
             message += products.get(i).toString() + "\n---------------------------------\n";
         }
+        for(int i=0; i<users.size(); i++){
+            message += users.get(i).toString() + "\n---------------------------------\n";
+        }
         return message;
     }
 
@@ -108,7 +114,7 @@ public class Controller {
         return Category.values()[i].toString();
     }
 
-    // ------------ Users ------------
+    // --------------------- Users ---------------------
     public User searchUser(String id){
         User user = null;
         boolean search = true;
@@ -135,6 +141,27 @@ public class Controller {
         }
         else {
             message = "There is already a user with the entered ID.";
+        }
+        return message;
+    }
+
+    // ---Purchase of books or magazine subscriptions---
+    public String buyBP(int type, String idUser, String idBP){
+        User user = searchUser(null);
+        String message = "";
+        boolean buy = true;
+        if(user instanceof Regular){
+            Regular userR = (Regular) user;
+            buy = userR.canBuy(type);
+        } else {
+            message = type==1?"Maximum number of books purchased":"Maximum number of active subscriptions";
+        }
+        BibliographicProduct bp = searchBP(idBP);
+        if(buy&&bp!=null&&((type==1&&bp instanceof Book)||(type==2&&bp instanceof Magazine))){
+            bp.sellBP();
+            user.buyBP(bp.getValue(), bp);
+        } else {
+            message = type==1?"Book not found":"Magazine Product not found";
         }
         return message;
     }

@@ -77,4 +77,6 @@ public abstract class BibliographicProduct {
         this.value = value==-1?this.value:value;
         this.pagesRead = pagesRead==-1?this.pagesRead:pagesRead;
     }
+
+    public abstract void sellBP();
 }

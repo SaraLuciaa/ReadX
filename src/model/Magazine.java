@@ -43,4 +43,9 @@ public class Magazine extends BibliographicProduct {
         this.periodicityEmission = periodicityEmission.equals("-1")|periodicityEmission.equals("")?this.periodicityEmission:periodicityEmission;
         this.activeSubscriptions = activeSubscriptions==-1?this.activeSubscriptions:activeSubscriptions;
     }
+
+    @Override
+    public void sellBP() {
+        activeSubscriptions++;    
+    }
 }

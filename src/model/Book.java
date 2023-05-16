@@ -43,4 +43,9 @@ public class Book extends BibliographicProduct{
         this.copiesSold = copiesSold==-1?this.copiesSold:copiesSold;
         this.genre = genre==-1?this.genre:Genre.values()[genre-1];
     }
+
+    @Override
+    public void sellBP() {
+        copiesSold++;    
+    }
 }

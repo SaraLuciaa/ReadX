@@ -8,12 +8,14 @@ public abstract class User {
     private Calendar vinculation;
 
     private ArrayList<BibliographicProduct> bp;
+    private ArrayList<Payment> payments; 
 
     public User(String name, String id) {
         this.name = name;
         this.id = id;
         this.vinculation = Calendar.getInstance();
         this.bp = new ArrayList<BibliographicProduct>();
+        this.payments = new ArrayList<Payment>();
     } 
 
     public String getName() {
@@ -37,5 +39,27 @@ public abstract class User {
 
     public String toString(){
         return "Name: " + name + "\nId: " + id + "\nType: " + this.getClass().getSimpleName(); 
+    }
+
+    public ArrayList<BibliographicProduct> getBp() {
+        return bp;
+    }
+
+    public void setBp(ArrayList<BibliographicProduct> bp) {
+        this.bp = bp;
+    }
+
+    public ArrayList<Payment> getPayments() {
+        return payments;
+    }
+
+    public void setPayments(ArrayList<Payment> payments) {
+        this.payments = payments;
+    }
+
+    public void buyBP(double pay, BibliographicProduct newBP){
+        bp.add(newBP);
+        Payment newP = new Payment(pay);
+        payments.add(newP);
     }
 }
