@@ -1,6 +1,8 @@
 package ui;
 import java.util.Calendar;
 import java.util.Scanner;
+
+import model.BibliographicProduct;
 import model.Controller;
 
 public class Manager {
@@ -48,14 +50,17 @@ public class Manager {
 			boolean status = true;
 			Scanner l = new Scanner(System.in);
 			while(status){
-				System.out.println("Choose the option:\n1.Purchase book\n2.Subscribe to magazine\n10.Exit");
+				System.out.println("Choose the option:\n1.Purchase book\n2.Subscribe to magazine\n3.Simulate reading session\n10.Exit");
 				int opt = l.nextInt();	
 				switch(opt){
 					case 1:
 						buyBP(1, id);
 						break;
-					case 3:
+					case 2:
 						buyBP(2, id);
+						break;
+					case 3:
+						simulateReadingSession(id);
 						break;
 					case 9: 
 						status = false;
@@ -233,6 +238,29 @@ public class Manager {
 		System.out.print(type==1?"Book ID: ":"Magazine ID: ");
 		String idBP = l.nextLine();
 		System.out.println(readX.buyBP(type, idUser, idBP));
+	}
+
+	public void simulateReadingSession(String idUser){
+		Scanner l = new Scanner(System.in);
+		System.out.print("Bibliographic Product ID: ");
+		String idBP = l.nextLine();
+		System.out.print("Page: ");
+		int page = l.nextInt();
+		l.nextLine();
+		System.out.println(readX.simulateReadingSession(page, idBP, idUser));
+		char opt = l.nextLine().toUpperCase().charAt(0);
+		while(opt!='B'){
+			if(opt=='A'){
+				page--;
+				System.out.println(readX.simulateReadingSession(page, idBP, idUser));
+			} else if(opt=='S'){
+				page++;
+				System.out.println(readX.simulateReadingSession(page, idBP, idUser));
+			} else {
+				System.out.println("Input not valid. Try again.");
+			}
+			opt = l.nextLine().toUpperCase().charAt(0);
+		}
 	}
 
 	public static void main(String[] args) {

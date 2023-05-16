@@ -78,5 +78,9 @@ public abstract class BibliographicProduct {
         this.pagesRead = pagesRead==-1?this.pagesRead:pagesRead;
     }
 
+    public String simulateReadingSession(int page){
+        return "Reading " + name + "\n\nReading page " + page + "of" + pages;
+    }
+
     public abstract void sellBP();
 }

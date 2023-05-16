@@ -1,4 +1,5 @@
 package model;
+import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -182,7 +183,7 @@ public class Controller {
         return message;
     }
 
-    // ---Purchase of books or magazine subscriptions---
+    // -- Purchase of books or magazine subscriptions --
     public String buyBP(int type, String idUser, String idBP){
         User user = searchUser(idUser);
         String message = "";
@@ -204,4 +205,20 @@ public class Controller {
         }
         return message;
     }
+
+    // ----------- Simulate reading session ------------
+    public String simulateReadingSession(int page, String idBP, String idUser){
+        String message = "";
+        User user = searchUser(idUser);
+        BibliographicProduct bp = searchBP(idBP);
+        boolean adds = user instanceof Regular?true:false;
+        if(user!=null&&user.searchBP(idBP)!=null&&page<=bp.getPages()){
+            message = "Reading session in progress:\n"+ bp.simulateReadingSession(page) +"\n\nType A to go to the previous page.\nType S to go to the next page\nType B to return to the Library.";
+        } else if(page>bp.getPages()){
+            message = "Maximum number of pages: " + bp.getPages();
+        } else if(user.searchBP(idBP)==null) {
+            message = "This bibliographic product was not found in the library";
+        }
+        return message;
+    }  
 }

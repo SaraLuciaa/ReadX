@@ -64,4 +64,16 @@ public abstract class User {
         payments.add(newP);
         return "----------- Bill -----------\n" + newBP.getName() + "\nOperation date: " + timeStamp.format(newP.getDateOperation().getTime()) + "\nAmount paid: " + newP.getPay() + "\n----------------------------";
     }
+
+    public BibliographicProduct searchBP(String id){
+        BibliographicProduct product = null;
+        boolean search = true;
+        for(int i=0; i<bp.size()&&search; i++){
+            if(bp.get(i).getId().equalsIgnoreCase(id)){
+                product = bp.get(i);
+                search = false;
+            }
+        }
+        return product;
+    }
 }
