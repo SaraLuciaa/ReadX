@@ -2,7 +2,6 @@ package ui;
 import java.util.Calendar;
 import java.util.Scanner;
 
-import model.BibliographicProduct;
 import model.Controller;
 
 public class Manager {
@@ -46,11 +45,11 @@ public class Manager {
 	}
 
 	public void menuUser(String id){
-		if(readX.searchUser(id)!=null){
+		if(readX.existUser(id)){
 			boolean status = true;
 			Scanner l = new Scanner(System.in);
 			while(status){
-				System.out.println("Choose the option:\n1.Purchase book\n2.Subscribe to magazine\n3.Simulate reading session\n10.Exit");
+				System.out.println("Choose the option:\n1.Purchase book\n2.Subscribe to magazine\n3.Simulate reading session\n4.My Library\n10.Exit");
 				int opt = l.nextInt();	
 				switch(opt){
 					case 1:
@@ -61,6 +60,9 @@ public class Manager {
 						break;
 					case 3:
 						simulateReadingSession(id);
+						break;
+					case 4: 
+						goToMyLibrary(id);
 						break;
 					case 9: 
 						status = false;
@@ -260,6 +262,27 @@ public class Manager {
 				System.out.println("Input not valid. Try again.");
 			}
 			opt = l.nextLine().toUpperCase().charAt(0);
+		}
+	}
+
+	public void goToMyLibrary(String idUser){
+		Scanner l = new Scanner(System.in);
+		int page = 0;
+		String message = "\n\nType the x,y coordinate or the corresponding code of the bibliographic product to start a reading session\nType A to go to the previous page\nType S to go to the next page\nType E to exit";
+		System.out.println(readX.goToMyLibrary(idUser, page) + message);
+		char input = l.nextLine().toUpperCase().charAt(0);
+		while(input!='E'){
+			if(input=='A'){
+				if(page>0){
+					page--;
+				}
+				System.out.println(readX.goToMyLibrary(idUser, page) + message);
+				input = l.nextLine().toUpperCase().charAt(0);
+			} else if (input=='S'){
+				page++;
+				System.out.println(readX.goToMyLibrary(idUser, page) + message);
+				input = l.nextLine().toUpperCase().charAt(0);
+			}
 		}
 	}
 

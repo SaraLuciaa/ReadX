@@ -2,6 +2,7 @@ package model;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 
 public abstract class User {
     private String name; 
@@ -37,23 +38,18 @@ public abstract class User {
     public void setVinculation(Calendar vinculation) {
         this.vinculation = vinculation;
     }
-
     public String toString(){
         return "Name: " + name + "\nId: " + id + "\nType: " + this.getClass().getSimpleName(); 
     }
-
     public ArrayList<BibliographicProduct> getBp() {
         return bp;
     }
-
     public void setBp(ArrayList<BibliographicProduct> bp) {
         this.bp = bp;
     }
-
     public ArrayList<Payment> getPayments() {
         return payments;
     }
-
     public void setPayments(ArrayList<Payment> payments) {
         this.payments = payments;
     }
@@ -75,5 +71,23 @@ public abstract class User {
             }
         }
         return product;
+    }
+
+    public String[][][] generateLibrary(){
+        Collections.sort(bp);
+        int cont = 0;
+        int numL = (int) Math.floor(bp.size()/25);
+        int row = 5;
+        int column = 5;
+        String[][][] library = new String[numL+2][row][column]; 
+        for(int k=0; k<library.length; k++){
+            for (int i = 0; i < row; i++) {
+                for (int j = 0; j < column; j++) {
+                    library[k][i][j] = cont<bp.size()?bp.get(cont).getId():"___";
+                    cont++;
+                }
+            }
+        }
+        return library;
     }
 }

@@ -165,6 +165,10 @@ public class Controller {
         return user;
     }
 
+    public boolean existUser(String id){
+        return searchUser(id)!=null?true:false;
+    }
+
     public String createUser(int type, String name, String id){
         String message = "";
         User newU = searchUser(id);
@@ -220,5 +224,27 @@ public class Controller {
             message = "This bibliographic product was not found in the library";
         }
         return message;
-    }  
+    } 
+    
+    public String goToMyLibrary(String idUser, int page){
+        User user = searchUser(idUser); 
+        String message = "   |  0  |  1  |  2  |  3  |  4 ";
+        String[][][] library = user.generateLibrary();
+        if(page>=library.length){
+            page = library.length-1;
+        }
+        for(int i=0; i<library[page].length; i++){
+            message += "\n " + i ;
+            for(int j=0; j<library[page][i].length; j++){
+                message += " | " + library[page][i][j]; 
+            }
+        }
+        return message;
+    }
+
+    public String navigateLibrary(){
+        return null;
+    }
+
+
 }
