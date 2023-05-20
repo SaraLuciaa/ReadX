@@ -217,11 +217,12 @@ public class Controller {
         BibliographicProduct bp = searchBP(idBP);
         boolean adds = user instanceof Regular?true:false;
         if(user!=null&&user.searchBP(idBP)!=null&&page<=bp.getPages()){
+            if(page<1){page=1;}
             message = "Reading session in progress:\n"+ bp.simulateReadingSession(page) +"\n\nType A to go to the previous page.\nType S to go to the next page\nType B to return to the Library.";
-        } else if(page>bp.getPages()){
-            message = "Maximum number of pages: " + bp.getPages();
-        } else if(user.searchBP(idBP)==null) {
-            message = "This bibliographic product was not found in the library";
+        } else if(user!=null&&user.searchBP(idBP)!=null&&page>bp.getPages()){
+            message = "ALERT!!! Maximum number of pages: " + bp.getPages() + "\n\nReading session in progress:\n"+ bp.simulateReadingSession(page) +"\n\nType A to go to the previous page.\nType S to go to the next page\nType B to return to the Library.";
+        } else if(user!=null&&user.searchBP(idBP)==null) {
+            message = "This bibliographic product was not found in the library. Type B to return to the Library.";
         }
         return message;
     } 
@@ -242,9 +243,17 @@ public class Controller {
         return message;
     }
 
-    public String navigateLibrary(){
-        return null;
-    }
-
-
+    public String goToSimulation(String idUser, String input){
+        User user = searchUser(idUser); 
+		String[] idBP = input.split(",");
+		String bp = idBP[0];
+		if(idBP.length==2){
+            String x = idBP[0];
+            String y = idBP[1];
+            if(x.matches("-?\\d+")&&y.matches("-?\\d+")){
+                bp = user.searchBP(Integer.parseInt(idBP[0]), Integer.parseInt(idBP[1]));
+            }
+		}
+		return bp;
+	}
 }

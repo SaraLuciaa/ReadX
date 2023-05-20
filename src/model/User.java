@@ -8,6 +8,7 @@ public abstract class User {
     private String name; 
     private String id;
     private Calendar vinculation;
+    String[][][] library;
 
     private ArrayList<BibliographicProduct> bp;
     private ArrayList<Payment> payments; 
@@ -18,6 +19,7 @@ public abstract class User {
         this.vinculation = Calendar.getInstance();
         this.bp = new ArrayList<BibliographicProduct>();
         this.payments = new ArrayList<Payment>();
+        this.library = null;
     } 
 
     public String getName() {
@@ -79,7 +81,7 @@ public abstract class User {
         int numL = (int) Math.floor(bp.size()/25);
         int row = 5;
         int column = 5;
-        String[][][] library = new String[numL+2][row][column]; 
+        library = new String[numL+2][row][column]; 
         for(int k=0; k<library.length; k++){
             for (int i = 0; i < row; i++) {
                 for (int j = 0; j < column; j++) {
@@ -89,5 +91,21 @@ public abstract class User {
             }
         }
         return library;
+    }
+
+    public String searchBP(int x, int y){
+        String idBP = "___";
+        boolean search = (x<library[0].length)&&(y<library[0][0].length)?true:false;
+        for(int k=0; k<library.length&&search; k++){
+            for (int i = 0; i < library[k].length&&search; i++) {
+                for (int j = 0; j < library[k][i].length&&search; j++) {
+                    if(i==x&&j==y){
+                        idBP = library[k][i][j];
+                        search = false;
+                    }
+                }
+            }
+        }
+        return idBP;
     }
 }

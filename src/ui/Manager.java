@@ -2,6 +2,7 @@ package ui;
 import java.util.Calendar;
 import java.util.Scanner;
 
+import javafx.scene.input.InputMethodRequests;
 import model.Controller;
 
 public class Manager {
@@ -249,6 +250,11 @@ public class Manager {
 		System.out.print("Page: ");
 		int page = l.nextInt();
 		l.nextLine();
+		simulateReadingSession(page, idBP, idUser);
+	}
+
+	public void simulateReadingSession(int page, String idBP, String idUser){
+		Scanner l = new Scanner(System.in);
 		System.out.println(readX.simulateReadingSession(page, idBP, idUser));
 		char opt = l.nextLine().toUpperCase().charAt(0);
 		while(opt!='B'){
@@ -270,21 +276,24 @@ public class Manager {
 		int page = 0;
 		String message = "\n\nType the x,y coordinate or the corresponding code of the bibliographic product to start a reading session\nType A to go to the previous page\nType S to go to the next page\nType E to exit";
 		System.out.println(readX.goToMyLibrary(idUser, page) + message);
-		char input = l.nextLine().toUpperCase().charAt(0);
-		while(input!='E'){
-			if(input=='A'){
+		String input = l.nextLine();
+		while(!input.equalsIgnoreCase("E")){
+			if(input.equalsIgnoreCase("A")){
 				if(page>0){
 					page--;
 				}
-				System.out.println(readX.goToMyLibrary(idUser, page) + message);
-				input = l.nextLine().toUpperCase().charAt(0);
-			} else if (input=='S'){
+			} else if (input.equalsIgnoreCase("S")){
 				page++;
-				System.out.println(readX.goToMyLibrary(idUser, page) + message);
-				input = l.nextLine().toUpperCase().charAt(0);
+			} else {
+				String idBp = readX.goToSimulation(idUser, input);
+				simulateReadingSession(1, idBp, idUser);
 			}
-		}
+			System.out.println(readX.goToMyLibrary(idUser, page) + message);
+			input = l.nextLine();
+		}	
 	}
+
+	
 
 	public static void main(String[] args) {
 		Manager objManager = new Manager();
