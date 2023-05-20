@@ -93,13 +93,13 @@ public abstract class User {
         return library;
     }
 
-    public String searchBP(int x, int y){
+    public String searchBP(int x, int y, int z){
         String idBP = "___";
-        boolean search = (x<library[0].length)&&(y<library[0][0].length)?true:false;
+        boolean search = (z<library.length)&&(x<library[0].length)&&(y<library[0][0].length)?true:false;
         for(int k=0; k<library.length&&search; k++){
             for (int i = 0; i < library[k].length&&search; i++) {
                 for (int j = 0; j < library[k][i].length&&search; j++) {
-                    if(i==x&&j==y){
+                    if(k==z&&i==x&&j==y){
                         idBP = library[k][i][j];
                         search = false;
                     }

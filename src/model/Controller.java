@@ -243,7 +243,7 @@ public class Controller {
         return message;
     }
 
-    public String goToSimulation(String idUser, String input){
+    public String goToSimulation(String idUser, String input, int page){
         User user = searchUser(idUser); 
 		String[] idBP = input.split(",");
 		String bp = idBP[0];
@@ -251,7 +251,7 @@ public class Controller {
             String x = idBP[0];
             String y = idBP[1];
             if(x.matches("-?\\d+")&&y.matches("-?\\d+")){
-                bp = user.searchBP(Integer.parseInt(idBP[0]), Integer.parseInt(idBP[1]));
+                bp = user.searchBP(Integer.parseInt(idBP[0]), Integer.parseInt(idBP[1]), page);
             }
 		}
 		return bp;

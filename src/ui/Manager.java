@@ -285,7 +285,7 @@ public class Manager {
 			} else if (input.equalsIgnoreCase("S")){
 				page++;
 			} else {
-				String idBp = readX.goToSimulation(idUser, input);
+				String idBp = readX.goToSimulation(idUser, input, page);
 				simulateReadingSession(1, idBp, idUser);
 			}
 			System.out.println(readX.goToMyLibrary(idUser, page) + message);
