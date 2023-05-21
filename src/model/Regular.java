@@ -22,9 +22,14 @@ public class Regular extends User{
         boolean canB = false;
         if(type==1&&maxBook>0){
             canB = true;
-        } else if (type==1&&maxMagazine>0){
+        } else if (type==2&&maxMagazine>0){
             canB = true;
         }
         return canB;
+    }
+
+    public String cancelSuscription(String idM){
+        maxMagazine++;
+        return super.cancelSuscription(idM);
     }
 }

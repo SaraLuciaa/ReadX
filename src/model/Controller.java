@@ -1,5 +1,4 @@
 package model;
-import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -23,31 +22,20 @@ public class Controller {
         publication2.set(2005, Calendar.NOVEMBER, 11);
         Calendar publication3 = Calendar.getInstance();
         publication3.set(2018, Calendar.MARCH, 22);
-
-        Book book1 = new Book("2A9","The Great Gatsby", "https://example.com/the-great-gatsby", 300, publication1, 19.99, 200, "A captivating story set in the 1920s.", 1000, 3);
-        products.add(book1);        
-        Book book2 = new Book("B0E", "1984", "https://example.com/1984", 350, publication2, 14.99, 150, "A dystopian masterpiece.", 2000, 1);
-        products.add(book2);
-        Book book3 = new Book("7C1", "Pride and Prejudice", "https://example.com/pride-and-prejudice", 250, publication3, 9.99, 200, "A classic love story with witty dialogue.", 3000, 2);
-        products.add(book3);
-
-        Magazine magazine1 = new Magazine("M01", "Entertainment Weekly", "https://www.entertainmentweekly.com", 70, publication1, 8.99, 50, 1, "Weekly", 2000);
-        products.add(magazine1);
-        Magazine magazine2 = new Magazine("M02", "Architectural Digest", "https://www.architecturaldigest.com", 90, publication2, 10.99, 20, 2, "Monthly", 800);
-        products.add(magazine2);
-        Magazine magazine3 = new Magazine("M03", "Science Today", "https://www.sciencetoday.com", 60, publication3, 7.99, 40, 3, "Bi-monthly", 500);
-        products.add(magazine3);
-
-        // Users
-        User user1 = new Regular("Alice", "123001");
-        users.add(user1);
-        User user2 = new Regular("Bob", "456002");
-        users.add(user2);
-        User user3 = new Premium("Carol", "789003");
-        users.add(user3);
-        User user4 = new Premium("David", "258004");
-        users.add(user4);
-
+        // Book
+        createBP("2A9","The Great Gatsby", "https://example.com/the-great-gatsby", 300, publication1, 19.99, 200, "A captivating story set in the 1920s.", 1000, 3);    
+        createBP("B0E", "1984", "https://example.com/1984", 350, publication2, 14.99, 150, "A dystopian masterpiece.", 2000, 1);
+        createBP("7C1", "Pride and Prejudice", "https://example.com/pride-and-prejudice", 250, publication3, 9.99, 200, "A classic love story with witty dialogue.", 3000, 2);
+        // Magazine
+        createBP("M01", "Entertainment Weekly", "https://www.entertainmentweekly.com", 70, publication1, 8.99, 50, 1, "Weekly", 2000);
+        createBP("M02", "Architectural Digest", "https://www.architecturaldigest.com", 90, publication2, 10.99, 20, 2, "Monthly", 800);
+        createBP("M03", "Science Today", "https://www.sciencetoday.com", 60, publication3, 7.99, 40, 3, "Bi-monthly", 500);
+        // Regular user
+        createUser(1, "Alice", "123001");
+        createUser(1, "Bob", "456002");
+        // Premium user
+        createUser(2,"Carol", "789003");
+        createUser(2,"David", "258004");
         return toString();
     }
 
@@ -109,15 +97,15 @@ public class Controller {
         Book product = (Book) searchBP(id);
         String message = "-----Initial data-----\n" + product.toString() + "\n------------------------\n";
         product.updateBook(name, url, pages, publication, value, pagesRead, review, copiesSold, genre);
-        message += "-----Updated data-----" + product.toString() + "\n------------------------\n";
+        message += "-----Updated data-----\n" + product.toString() + "\n------------------------\n";
         return message;
     }
 
     public String updateBP(String id, String name, String url, int pages, Calendar publication, double value, int pagesRead, int category, String periodicityEmission, int activeSubscriptions){
         Magazine product = (Magazine) searchBP(id);
-        String message = "-----Initial data-----\n" + product.toString() + "\n------------------------\n";
+        String message = "-----Initial data-----\n" + product.toString();
         product.updateMagazine(name, url, pages, publication, value, pagesRead, category, periodicityEmission, activeSubscriptions);
-        message += "-----Updated data-----" + product.toString() + "\n------------------------\n";
+        message += "\n-----Updated data-----\n" + product.toString() + "\n------------------------\n";   
         return message;
     }
 
@@ -134,12 +122,12 @@ public class Controller {
     }
 
     public String toString(){
-        String message = "";
+        String message = "---------------------------------";
         for(int i=0; i<products.size(); i++){
-            message += products.get(i).toString() + "\n---------------------------------\n";
+            message +=  "\n" + products.get(i).toString() + "\n---------------------------------";
         }
         for(int i=0; i<users.size(); i++){
-            message += users.get(i).toString() + "\n---------------------------------\n";
+            message += "\n" + users.get(i).toString() + "\n---------------------------------";
         }
         return message;
     }
@@ -227,6 +215,7 @@ public class Controller {
         return message;
     } 
     
+    // -------------- Library presentation -------------
     public String goToMyLibrary(String idUser, int page){
         User user = searchUser(idUser); 
         String message = "   |  0  |  1  |  2  |  3  |  4 ";
@@ -256,4 +245,18 @@ public class Controller {
 		}
 		return bp;
 	}
+
+    // -------------- Cancel suscription ---------------
+    public String cancelSuscription(String idUser, String idM){
+        String message = "";
+        User user = searchUser(idUser);
+        Magazine magazine = user.searchBP(idM)!=null&&user.searchBP(idM) instanceof Magazine?(Magazine) user.searchBP(idM):null;
+        if(user!=null&&magazine!=null){
+            magazine.setActiveSubscriptions(magazine.getActiveSubscriptions()-1);
+            message = "The subscription has been canceled successfully\n" + user.cancelSuscription(idM);
+        } else {
+            message = "ERROR! Check the magazine ID.";
+        }
+        return message;
+    }
 }

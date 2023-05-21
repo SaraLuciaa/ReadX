@@ -108,4 +108,19 @@ public abstract class User {
         }
         return idBP;
     }
+
+    public String cancelSuscription(String idM){
+        String message = "-- Your bibliographic products --\n";
+        boolean cancel = false;
+        for(int i=0; i<bp.size(); i++){
+            if(bp.get(i).getId().equalsIgnoreCase(idM)&&!cancel){
+                bp.remove(i);
+                cancel = true;
+            } else {
+                message += bp.get(i).getId() + "  " + bp.get(i).getName();
+            }            
+        }
+        message += "---------------------------------";
+        return message;
+    }
 }

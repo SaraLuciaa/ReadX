@@ -71,7 +71,7 @@ public abstract class BibliographicProduct implements Comparable<BibliographicPr
 
     public void updateBP(String name, String url,int pages, Calendar publication, double value, int pagesRead){
         this.name = name.equals("-1")|name.equals("")?this.name:name;
-        this.url = id.equals("-1")|url.equals("")?this.id:id;
+        this.url = id.equals("-1")|url.equals("")?this.url:url;
         this.pages = pages==-1?this.pages:pages;
         this.publication = publication;
         this.value = value==-1?this.value:value;

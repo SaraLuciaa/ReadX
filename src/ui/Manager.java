@@ -2,7 +2,6 @@ package ui;
 import java.util.Calendar;
 import java.util.Scanner;
 
-import javafx.scene.input.InputMethodRequests;
 import model.Controller;
 
 public class Manager {
@@ -50,7 +49,7 @@ public class Manager {
 			boolean status = true;
 			Scanner l = new Scanner(System.in);
 			while(status){
-				System.out.println("Choose the option:\n1.Purchase book\n2.Subscribe to magazine\n3.Simulate reading session\n4.My Library\n10.Exit");
+				System.out.println("Choose the option:\n1.Purchase book\n2.Subscribe to magazine\n3.Simulate reading session\n4.My Library\n5.Cancel a magazine subscription\n10.Exit");
 				int opt = l.nextInt();	
 				switch(opt){
 					case 1:
@@ -64,6 +63,9 @@ public class Manager {
 						break;
 					case 4: 
 						goToMyLibrary(id);
+						break;
+					case 5:
+						cancelSuscription(id);
 						break;
 					case 9: 
 						status = false;
@@ -142,18 +144,34 @@ public class Manager {
 		System.out.print("	Year: ");
 		int yearPublication = l.nextInt();
 		Calendar datePublication = Calendar.getInstance();
-		datePublication.set(dayPublication, monthPublication-1, yearPublication);
+		datePublication.set(yearPublication, monthPublication-1, dayPublication);
 		System.out.print("Value: ");
 		double value = l.nextDouble();
+		while(value<0){
+			System.out.println("The value cannot be less than zero. Try again");
+			value = l.nextInt();
+		}
 		System.out.print("Number of pages read: ");
 		int pagesRead = l.nextInt();
+		while(pagesRead<0){
+			System.out.println("The number of pages read cannot be less than zero. Try again");
+			pagesRead = l.nextInt();
+		}
 		l.nextLine();
 		if(type==1){
 			System.out.print("Review: ");
 			String review = l.nextLine();
+			while(review.length()>350){
+				System.out.println("The review can contain a maximum of 350 characters. Try again");
+				review = l.nextLine();
+			}
 			System.out.print("Number of copies sold: ");
 			int copiesSold = l.nextInt();
 			l.nextLine();
+			while(copiesSold<0){
+				System.out.println("The number of copies sold cannot be less than zero. Try again");
+				copiesSold = l.nextInt();
+			}
 			System.out.print("Genre:\n");
 			for(int i=0; i<3; i++){
 				System.out.println((i+1)+ ". " + readX.showGenre(i));
@@ -173,23 +191,31 @@ public class Manager {
 				System.out.println(readX.updateBP(id, name, url, pages, datePublication, value, pagesRead, review, copiesSold, genre));
 			}
 		} else {
-			System.out.print("Category: ");
-			for(int i=0; i<3; i++){
-				System.out.println((i+1) + readX.showCategory(i));
-			}
-			int category = l.nextInt();
-			while(category<1|category>3){
-				System.out.println("Input invalid. Try again");
-				category = l.nextInt();
-			}
-			l.nextLine();
 			System.out.print("Periodicity of emission: ");
 			String periodicityEmission = l.nextLine();
 			System.out.println("Number of active subscriptions: ");
 			int activeSubscriptions = l.nextInt();
+			while(activeSubscriptions<0){
+				System.out.println("The number of active subscriptions cannot be less than zero. Try again");
+				activeSubscriptions = l.nextInt();
+			}
+			System.out.println("Category: ");
+			for(int i=0; i<3; i++){
+				System.out.println((i+1) + ". " + readX.showCategory(i));
+			}
+			l.nextLine();
+			int category = l.nextInt();
 			if(func==1){
+				while(category<1&&category>3){
+					System.out.println("Input invalid. Try again");
+					category = l.nextInt();
+				}
 				System.out.println(readX.createBP(id, name, url, pages, datePublication, value, pagesRead, category, periodicityEmission, activeSubscriptions));
 			} else {
+				while((category<1&&category>3)||category!=-1){
+					System.out.println("Input invalid. Try again");
+					category = l.nextInt();
+				}
 				System.out.println(readX.updateBP(id, name, url, pages, datePublication, value, pagesRead, category, periodicityEmission, activeSubscriptions));
 			}
 		}
@@ -200,12 +226,16 @@ public class Manager {
 		System.out.println("Enter the number of the type of bibliographic product:    1.Book    2.Magazine");
 		int type = l.nextInt();
 		while(type!=1&&type!=2){
-		System.out.println("Input invalid. Try again");
+			System.out.println("Input invalid. Try again");
 			type = l.nextInt();
 		}
 		l.nextLine();
 		System.out.print("Id: ");
 		String id = l.nextLine();
+		while(id.length()>3){
+			System.out.println("Input invalid. Try again");
+			id = l.nextLine();
+		}
 		createupdateBP(type, 1, id);
 	}
 
@@ -293,8 +323,12 @@ public class Manager {
 		}	
 	}
 
-	
-
+	public void cancelSuscription(String idUser){
+		Scanner l = new Scanner(System.in);
+		System.out.println("Magazine ID: ");
+		String idM = l.nextLine();
+		System.out.println(readX.cancelSuscription(idUser, idM));
+	}
 	public static void main(String[] args) {
 		Manager objManager = new Manager();
 		objManager.menu();
