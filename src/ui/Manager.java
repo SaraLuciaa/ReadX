@@ -49,7 +49,8 @@ public class Manager {
 			boolean status = true;
 			Scanner l = new Scanner(System.in);
 			while(status){
-				System.out.println("Choose the option:\n1.Purchase book\n2.Subscribe to magazine\n3.Simulate reading session\n4.My Library\n5.Cancel a magazine subscription\n10.Exit");
+				System.out.println("Choose the option:\n1.Purchase book\n2.Subscribe to magazine\n3.Simulate reading session\n4.My Library\n5.Cancel a magazine subscription\n9.Back to main menu\n10.Exit");
+				System.out.println(readX.showAdd(id));
 				int opt = l.nextInt();	
 				switch(opt){
 					case 1:
@@ -280,10 +281,8 @@ public class Manager {
 		Scanner l = new Scanner(System.in);
 		System.out.print("Bibliographic Product ID: ");
 		String idBP = l.nextLine();
-		System.out.print("Page: ");
-		int page = l.nextInt();
 		l.nextLine();
-		simulateReadingSession(page, idBP, idUser);
+		simulateReadingSession(1, idBP, idUser);
 	}
 
 	public void simulateReadingSession(int page, String idBP, String idUser){

@@ -1,6 +1,7 @@
 package model;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Random;
 
 public class Controller {
     private ArrayList<BibliographicProduct> products;
@@ -209,7 +210,6 @@ public class Controller {
         String message = "";
         User user = searchUser(idUser);
         BibliographicProduct bp = searchBP(idBP);
-        boolean adds = user instanceof Regular?true:false;
         if(user!=null&&user.searchBP(idBP)!=null&&page<=bp.getPages()){
             if(page<1){page=1;}
             message = "Reading session in progress:\n"+ bp.simulateReadingSession(page) +"\n\nType A to go to the previous page.\nType S to go to the next page\nType B to return to the Library.";
@@ -218,6 +218,7 @@ public class Controller {
         } else if(user!=null&&user.searchBP(idBP)==null) {
             message = "This bibliographic product was not found in the library. Type B to return to the Library.";
         }
+        message += "\n" + (((page%20==0||page==1)&&bp instanceof Book)||((page%5==0||page==1)&&bp instanceof Magazine)?showAdd(idUser):"");
         return message;
     } 
     
@@ -441,5 +442,16 @@ public class Controller {
             message += "\n" + Category.values()[i].toString() + "\nActive suscriptions: " + category[i] + "  |  Total paid: " + totalSalesSuscription(2)[i] + "\n--------------------------------------------------";
         }
         return message;
+    }
+
+    public String showAdd(){
+        String[] message = {"****** Subscribe to Combo Plus and get Disney+ and Star+ at an incredible price! **************", "****** Now your pets have a favorite app: Laika. The best products for your furry one. ********", "****** It's our anniversary! Visit your nearest Exito and be surprised with the best offers. **"};
+        Random random = new Random();
+        int position = random.nextInt(3);
+        return message[position];
+    }
+
+    public String showAdd(String idUser){
+        return ((searchUser(idUser)!=null)&&(searchUser(idUser) instanceof Regular))?showAdd():"";
     }
 }
