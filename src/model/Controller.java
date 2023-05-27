@@ -259,4 +259,19 @@ public class Controller {
         }
         return message;
     }
+
+    // -------------- Generate reports -----------------
+    public String totalPagesRead(){
+        int contB = 0;
+        int contM = 0;
+        for(int i=0; i<products.size(); i++){
+            int pagesRead = products.get(i).getPagesRead();
+            if(products.get(i) instanceof Book){
+                contB+=pagesRead;
+            } else if(products.get(i) instanceof Magazine){
+                contM+=pagesRead;
+            }
+        }
+        return "Book: " + contB + "\nMagazine: " + contM + "\nTotal: " + (contM+contB); 
+    }
 }

@@ -103,7 +103,7 @@ public class Manager {
 		boolean status = true;
 		Scanner l = new Scanner(System.in);
 		while(status){
-			System.out.println("Choose the option:\n1.Add bibliographic product\n2.Update bibliographic product\n3.Remove bibliographic product\n9.Back to main menu\n10.Exit");
+			System.out.println("Choose the option:\n1.Add bibliographic product\n2.Update bibliographic product\n3.Remove bibliographic product\n4.Generate reports\n9.Back to main menu\n10.Exit");
 			int opt = l.nextInt();	
 			switch(opt){
 				case 1:
@@ -114,6 +114,9 @@ public class Manager {
 					break;
 				case 3:
 					removeBP();
+					break;
+				case 4: 
+					generateReports();
 					break;
 				case 9: 
 					status = false;
@@ -328,6 +331,11 @@ public class Manager {
 		System.out.println("Magazine ID: ");
 		String idM = l.nextLine();
 		System.out.println(readX.cancelSuscription(idUser, idM));
+	}
+
+	public void generateReports(){
+		System.out.println("---- Cumulative number of pages read ---");
+		System.out.println(readX.totalPagesRead());
 	}
 	public static void main(String[] args) {
 		Manager objManager = new Manager();

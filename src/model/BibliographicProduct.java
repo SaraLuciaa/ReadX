@@ -79,6 +79,7 @@ public abstract class BibliographicProduct implements Comparable<BibliographicPr
     }
 
     public String simulateReadingSession(int page){
+        pagesRead++;
         return "Reading " + name + "\n\nReading page " + page + " of " + pages;
     }
 
