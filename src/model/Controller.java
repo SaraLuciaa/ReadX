@@ -318,4 +318,45 @@ public class Controller {
         return "BOOK     | Most read category: " + categoryMax + " - " +  maxB + " pages read.\n"+ 
                "MAGAZINE | Most read genre:    " + genreMax + " - " +  maxM + " pages read.\n"; 
     }
+
+    public String top5(int typeBP){
+        String message = "Top 5 most read " + (typeBP==1?"books":"magazines");
+        ArrayList<BibliographicProduct> bp = new ArrayList<BibliographicProduct>();
+        for(BibliographicProduct product : products){
+            if(typeBP==1&&product instanceof Book){
+                bp.add(product);
+            } else if(typeBP==2&&product instanceof Magazine){
+                bp.add(product);
+            }
+        }
+        ArrayList<BibliographicProduct> top5 = new ArrayList<BibliographicProduct>();
+        for(BibliographicProduct prod : bp){
+            if (top5.isEmpty()) {
+                top5.add(prod);
+            } else {
+                int index = -1;
+                for (int i = 0; i < top5.size(); i++) {
+                    if (prod.getPagesRead() > top5.get(i).getPagesRead()) {
+                        index = i;
+                        break;
+                    }
+                }
+    
+                if (index != -1) {
+                    top5.add(index, prod);
+                    if (top5.size() > 5) {
+                        top5.remove(5);
+                    }
+                } else if (top5.size() < 5) {
+                    top5.add(prod);
+                }
+            }
+        }
+        for(int i=0; i<top5.size(); i++){
+            BibliographicProduct prod = top5.get(i);
+            message += "\n" +(i+1) + ". " + prod.getName() + " - " + prod.getPagesRead() + " pages read.";
+        }
+        return message;
+    }
+
 }
