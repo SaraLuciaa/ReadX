@@ -359,4 +359,28 @@ public class Controller {
         return message;
     }
 
+    public String bookCopiesSold(){
+        String message = "Sales report by genre";
+        int[] genre = new int[3];
+        double[] sales = new double[3];
+        for(int i=0; i<products.size(); i++){
+            if(products.get(i) instanceof Book){
+                Book product = (Book) products.get(i);
+                if(product.getGenre()==Genre.SCIENCE_FICTION){
+                    genre[0]+=product.getCopiesSold();
+                    sales[0]+=product.getCopiesSold()*product.getValue();
+                } else if(product.getGenre()==Genre.FANTASY){
+                    genre[1]+=product.getCopiesSold();
+                    sales[1]+=product.getCopiesSold()*product.getValue();
+                } else if(product.getGenre()==Genre.HISTORICAL_NOVEL){
+                    genre[2]+=product.getCopiesSold();
+                    sales[2]+=product.getCopiesSold()*product.getValue();
+                }
+            }
+        }
+        for(int i=0; i<genre.length; i++){
+            message += "\n" + Genre.values()[i].toString() + "\nCopies sold: " + genre[i] + "  |  Total sales: " + sales[i];
+        }
+        return message;
+    }
 }
