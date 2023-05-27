@@ -339,8 +339,9 @@ public class Manager {
 		System.out.println(readX.top5(1));
 		System.out.println(readX.top5(2));
 		System.out.println(readX.bookCopiesSold());
+		System.out.println(readX.magazineSuscriptionActive());
 	}
-	
+
 	public static void main(String[] args) {
 		Manager objManager = new Manager();
 		objManager.menu();

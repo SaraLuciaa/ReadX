@@ -185,9 +185,15 @@ public class Controller {
             buy = userR.canBuy(type);
         }
         BibliographicProduct bp = searchBP(idBP);
+        String subtype = "";
+        if(bp instanceof Book) {
+            subtype = ((Book) bp).getGenre().toString();
+        } else if(bp instanceof Magazine) {
+            subtype = ((Magazine) bp).getCategory().toString();
+        }
         if(buy&&bp!=null&&((type==1&&bp instanceof Book)||(type==2&&bp instanceof Magazine))){
             bp.sellBP();
-            Payment newP = new Payment(bp.getValue());
+            Payment newP = new Payment(bp.getClass().getSimpleName(), subtype, bp.getValue());
             payments.add(newP);
             message = user.buyBP(newP, bp);
         } else if (!buy) {
@@ -359,27 +365,80 @@ public class Controller {
         return message;
     }
 
+    public double[] totalSalesSuscription(int opt){
+        double[] totalSales = new double[3]; 
+        double[] totalSuscr = new double[3];
+        for(int i=0; i<users.size(); i++){
+            User user = users.get(i);
+            ArrayList<Payment> pay = user.getPayments();
+            for(int j=0; j<pay.size(); j++){
+                Payment p = pay.get(j);
+                if(p.getTypeBP().equals("Book")){
+                    if(p.getSubtype().equals(Genre.SCIENCE_FICTION.toString())){
+                        totalSales[0]+=p.getPay();
+                    } else if(p.getSubtype().equals(Genre.FANTASY.toString())){
+                        totalSales[1]+=p.getPay();
+                    } else if(p.getSubtype().equals(Genre.HISTORICAL_NOVEL.toString())){
+                        totalSales[2]+=p.getPay();
+                    }
+                } else if(p.getTypeBP().equals("Magazine")){
+                    if(p.getSubtype().equals(Category.VARIETIES.toString())){
+                        totalSuscr[0]+=p.getPay();
+                    } else if(p.getSubtype().equals(Category.DESIGN.toString())){
+                        totalSuscr[1]+=p.getPay();
+                    } else if(p.getSubtype().equals(Category.SCIENTIFY.toString())){
+                        totalSuscr[2]+=p.getPay();
+                    }
+                }
+            }
+        }
+        double[] totalS = new double[3];
+        if(opt==1){
+            totalS = totalSales;
+        } else {
+            totalS = totalSuscr;
+        }
+        return totalS;
+    }
+
     public String bookCopiesSold(){
-        String message = "Sales report by genre";
+        String message = "-------------- Sales report by genre -------------";
         int[] genre = new int[3];
-        double[] sales = new double[3];
         for(int i=0; i<products.size(); i++){
             if(products.get(i) instanceof Book){
                 Book product = (Book) products.get(i);
                 if(product.getGenre()==Genre.SCIENCE_FICTION){
                     genre[0]+=product.getCopiesSold();
-                    sales[0]+=product.getCopiesSold()*product.getValue();
                 } else if(product.getGenre()==Genre.FANTASY){
                     genre[1]+=product.getCopiesSold();
-                    sales[1]+=product.getCopiesSold()*product.getValue();
                 } else if(product.getGenre()==Genre.HISTORICAL_NOVEL){
                     genre[2]+=product.getCopiesSold();
-                    sales[2]+=product.getCopiesSold()*product.getValue();
                 }
             }
         }
         for(int i=0; i<genre.length; i++){
-            message += "\n" + Genre.values()[i].toString() + "\nCopies sold: " + genre[i] + "  |  Total sales: " + sales[i];
+            message += "\n" + Genre.values()[i].toString() + "\nCopies sold: " + genre[i] + "  |  Total sales: " + totalSalesSuscription(1)[i] + "\n--------------------------------------------------";
+        }
+        return message;
+    }
+
+    public String magazineSuscriptionActive(){
+        String message = "-------- Subscriptions report by category --------";
+        int[] category = new int[3];
+        for(int i=0; i<products.size(); i++){
+            if(products.get(i) instanceof Magazine){
+                Magazine product = (Magazine) products.get(i);
+                if(product.getCategory()==Category.VARIETIES){
+                    category[0]+=product.getActiveSubscriptions();
+                } else if(product.getCategory()==Category.DESIGN){
+                    category[1]+=product.getActiveSubscriptions();
+                } else if(product.getCategory()==Category.SCIENTIFY){
+                    category[2]+=product.getActiveSubscriptions();
+                }
+            }
+        }
+        for(int i=0; i<category.length; i++){
+            message += "\n" + Category.values()[i].toString() + "\nActive suscriptions: " + category[i] + "  |  Total paid: " + totalSalesSuscription(2)[i] + "\n--------------------------------------------------";
         }
         return message;
     }
