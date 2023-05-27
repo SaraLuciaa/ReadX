@@ -334,8 +334,8 @@ public class Manager {
 	}
 
 	public void generateReports(){
-		System.out.println("---- Cumulative number of pages read ---");
 		System.out.println(readX.totalPagesRead());
+		System.out.println(readX.totalPagesReadGenreCategory());
 	}
 	public static void main(String[] args) {
 		Manager objManager = new Manager();

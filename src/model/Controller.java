@@ -272,6 +272,50 @@ public class Controller {
                 contM+=pagesRead;
             }
         }
-        return "Book: " + contB + "\nMagazine: " + contM + "\nTotal: " + (contM+contB); 
+        return "---- Cumulative number of pages read ---\nBook: " + contB + "\nMagazine: " + contM + "\nTotal: " + (contM+contB); 
+    }
+
+    public String totalPagesReadGenreCategory(){
+        int[] genre = new int[3];
+        int[] category = new int[3];
+        for(int i=0; i<products.size(); i++){
+            int pagesRead = products.get(i).getPagesRead();
+            if(products.get(i) instanceof Book){
+                Book product = (Book) products.get(i);
+                if(product.getGenre()==Genre.SCIENCE_FICTION){
+                    genre[0]+=pagesRead;
+                } else if(product.getGenre()==Genre.FANTASY){
+                    genre[1]+=pagesRead;
+                } else if(product.getGenre()==Genre.HISTORICAL_NOVEL){
+                    genre[2]+=pagesRead;
+                }
+            } else if(products.get(i) instanceof Magazine){
+                Magazine product = (Magazine) products.get(i);
+                if(product.getCategory()==Category.VARIETIES){
+                    category[0]+=pagesRead;
+                } else if(product.getCategory()==Category.DESIGN){
+                    category[1]+=pagesRead;
+                } else if(product.getCategory()==Category.SCIENTIFY){
+                    category[2]+=pagesRead;
+                }
+            }
+        }
+
+        int maxB = genre[0]; 
+        String genreMax = Genre.values()[0].toString();
+        int maxM = category[0]; 
+        String categoryMax = Genre.values()[0].toString();
+        for (int i = 1; i < genre.length; i++) {
+            if (genre[i] > maxB) {
+                maxB = genre[i];
+                genreMax = Genre.values()[i].toString();
+            }
+            if (category[i] > maxM) {
+                maxM = genre[i];
+                categoryMax = Category.values()[i].toString();
+            }
+        }
+        return "BOOK     | Most read category: " + categoryMax + " - " +  maxB + " pages read.\n"+ 
+               "MAGAZINE | Most read genre:    " + genreMax + " - " +  maxM + " pages read.\n"; 
     }
 }
