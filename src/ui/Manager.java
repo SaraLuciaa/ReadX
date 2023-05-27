@@ -151,13 +151,13 @@ public class Manager {
 		datePublication.set(yearPublication, monthPublication-1, dayPublication);
 		System.out.print("Value: ");
 		double value = l.nextDouble();
-		while(value<0){
+		while((value<0&&func==1)||(value<-1&&func==2)){
 			System.out.println("The value cannot be less than zero. Try again");
 			value = l.nextInt();
 		}
 		System.out.print("Number of pages read: ");
 		int pagesRead = l.nextInt();
-		while(pagesRead<0){
+		while((pagesRead<0&&func==1)||(pagesRead<-1&&func==2)){
 			System.out.println("The number of pages read cannot be less than zero. Try again");
 			pagesRead = l.nextInt();
 		}
@@ -172,7 +172,7 @@ public class Manager {
 			System.out.print("Number of copies sold: ");
 			int copiesSold = l.nextInt();
 			l.nextLine();
-			while(copiesSold<0){
+			while((copiesSold<0&&func==1)||(copiesSold<-1&&func==2)){
 				System.out.println("The number of copies sold cannot be less than zero. Try again");
 				copiesSold = l.nextInt();
 			}
@@ -188,7 +188,7 @@ public class Manager {
 				}
 				System.out.println(readX.createBP(id, name, url, pages, datePublication, value, pagesRead, review, copiesSold, genre));
 			} else {
-				while((genre<1&&genre>3)||genre!=-1){
+				while(!(genre >= 1 && genre <= 3) && genre != -1){
 					System.out.println("Input invalid. Try again");
 					genre = l.nextInt();
 				}
@@ -199,7 +199,7 @@ public class Manager {
 			String periodicityEmission = l.nextLine();
 			System.out.println("Number of active subscriptions: ");
 			int activeSubscriptions = l.nextInt();
-			while(activeSubscriptions<0){
+			while((activeSubscriptions<0&&func==1)||(activeSubscriptions<-1&&func==2)){
 				System.out.println("The number of active subscriptions cannot be less than zero. Try again");
 				activeSubscriptions = l.nextInt();
 			}
@@ -216,7 +216,7 @@ public class Manager {
 				}
 				System.out.println(readX.createBP(id, name, url, pages, datePublication, value, pagesRead, category, periodicityEmission, activeSubscriptions));
 			} else {
-				while((category<1&&category>3)||category!=-1){
+				while(!(category >= 1 && category <= 3) && category != -1){
 					System.out.println("Input invalid. Try again");
 					category = l.nextInt();
 				}
@@ -281,7 +281,6 @@ public class Manager {
 		Scanner l = new Scanner(System.in);
 		System.out.print("Bibliographic Product ID: ");
 		String idBP = l.nextLine();
-		l.nextLine();
 		simulateReadingSession(1, idBP, idUser);
 	}
 

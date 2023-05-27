@@ -114,10 +114,15 @@ public class Controller {
         String message = "";
         if(searchBP(id)!=null){
             products.remove(searchBP(id));
+            for(int i=0; i<users.size(); i++){
+                if(searchBP(id) instanceof Magazine){
+                    cancelSuscription(users.get(i).getId(), id);
+                }
+            }
             message = "---Bibliographic product removed successfully---";
         }
         else {
-            message = "Non-existent bibliographic product.";
+            message = "-------Non-existent bibliographic product.------";
         }
         return message;
     }
@@ -200,7 +205,7 @@ public class Controller {
         } else if (!buy) {
             message = type==1?"Maximum number of books purchased":"Maximum number of active subscriptions";
         } else {
-            message = type==1?"Book not found":"Magazine Product not found";
+            message = type==1?"Book not found":"Magazine not found";
         }
         return message;
     }

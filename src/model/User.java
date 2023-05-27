@@ -75,8 +75,25 @@ public abstract class User {
         return product;
     }
 
+    public void orderBP(){
+        boolean change = false;
+        for (int i=0; i<bp.size()-1&&!change; i++) {
+            change = false;
+            for (int j = 0; j <bp.size()-i-1; j++) {
+                BibliographicProduct actualBP = bp.get(j);
+                BibliographicProduct nextBP = bp.get(j + 1);
+
+                if (actualBP.getPublication().compareTo(nextBP.getPublication()) > 0) {
+                    bp.set(j, nextBP);
+                    bp.set(j+1, actualBP);
+                    change = true;
+                }
+            }
+        }
+    }
+
     public String[][][] generateLibrary(){
-        Collections.sort(bp);
+        orderBP();
         int cont = 0;
         int numL = (int) Math.floor(bp.size()/25);
         int row = 5;

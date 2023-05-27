@@ -2,7 +2,7 @@ package model;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public abstract class BibliographicProduct implements Comparable<BibliographicProduct>{
+public abstract class BibliographicProduct{
     private String id;
     private String name;
     private String url;
@@ -84,9 +84,4 @@ public abstract class BibliographicProduct implements Comparable<BibliographicPr
     }
 
     public abstract void sellBP();
-
-    @Override
-    public int compareTo(BibliographicProduct bp) {
-        return this.publication.compareTo(bp.getPublication());
-    }
 }
