@@ -11,6 +11,20 @@ public abstract class BibliographicProduct{
     private double value;
     private int pagesRead;
 
+    /**
+     * Constructs a BibliographicProduct object with the given parameters.
+     *
+     * <br>pre:<br> None.
+     * <br>post:<br> A BibliographicProduct object is created with the specified parameters.
+     *
+     * @param id          the ID of the product
+     * @param name        the name of the product
+     * @param url         the URL of the product
+     * @param pages       the total number of pages
+     * @param publication the publication date
+     * @param value       the value of the product
+     * @param pagesRead   the number of pages already read
+     */
     public BibliographicProduct(String id, String name, String url,int pages, Calendar publication, double value, int pagesRead) {
         this.id = id;
         this.name = name;
@@ -64,11 +78,32 @@ public abstract class BibliographicProduct{
         this.pagesRead = pagesRead;
     }
 
+    /**
+     * Returns a string representation of the BibliographicProduct object.
+     *
+     * <br>pre:<br> None.
+     * <br>post:<br> None.
+     * 
+     * @return a string representation of the object
+     */
     public String toString() {
         SimpleDateFormat timeStamp = new SimpleDateFormat("dd-MM-yyyy");
         return "Id: " + id + "\nName: " + name + "\nUrl: " + url + "\nPages: " + pages + "\nDate of publication: " + timeStamp.format(publication.getTime()) + "\nValue: " + value + "\nNumber of pages read: " + pagesRead;
     }
 
+    /**
+     * Updates the attributes of the BibliographicProduct object.
+     *
+     * <br>pre:<br> None.
+     * <br>post:<br> None.
+     * 
+     * @param name       the new name of the product
+     * @param url        the new URL of the product
+     * @param pages      the new total number of pages
+     * @param publication the new publication date
+     * @param value      the new value of the product
+     * @param pagesRead  the new number of pages already read
+     */
     public void updateBP(String name, String url,int pages, Calendar publication, double value, int pagesRead){
         this.name = name.equals("-1")|name.equals("")?this.name:name;
         this.url = id.equals("-1")|url.equals("")?this.url:url;
@@ -78,10 +113,23 @@ public abstract class BibliographicProduct{
         this.pagesRead = pagesRead==-1?this.pagesRead:pagesRead;
     }
 
+    /**
+     * Simulates a reading session for the product.
+     *
+     * <br>pre:<br> None.
+     * <br>post:<br> None.
+     * 
+     * @param page the page being read
+     * @return a string describing the reading session
+     */
     public String simulateReadingSession(int page){
         pagesRead++;
         return "Reading " + name + "\n\nReading page " + page + " of " + pages;
     }
 
+    /**
+     * Abstract method for selling the bibliographic product.
+     * Subclasses must implement this method.
+     */
     public abstract void sellBP();
 }

@@ -2,7 +2,6 @@ package model;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 
 public abstract class User {
     private String name; 
@@ -13,6 +12,15 @@ public abstract class User {
     private ArrayList<BibliographicProduct> bp;
     private ArrayList<Payment> payments; 
 
+    /**
+     * Constructs a User object with the specified name and ID.
+     *
+     * <br>pre:<br> The name and ID are not null.
+     * <br>post:<br> A User object is created with the provided name, ID, and current date of vinculation.
+     *
+     * @param name The name of the user.
+     * @param id The ID of the user.
+     */
     public User(String name, String id) {
         this.name = name;
         this.id = id;
@@ -55,7 +63,17 @@ public abstract class User {
     public void setPayments(ArrayList<Payment> payments) {
         this.payments = payments;
     }
-
+    
+    /**
+     * Adds a new bibliographic product and payment to the user's lists and generates a bill.
+     *
+     * <br>pre:<br> The newP and newBP are not null.
+     * <br>post:<br> The newBP and newP are added to the user's bibliographic products and payments lists respectively.
+     *
+     * @param newP The payment for the bibliographic product.
+     * @param newBP The bibliographic product to be added.
+     * @return A string representation of the bill for the purchase.
+     */
     public String buyBP(Payment newP, BibliographicProduct newBP){
         SimpleDateFormat timeStamp = new SimpleDateFormat("dd-MM-yyyy");
         bp.add(newBP);
@@ -63,6 +81,15 @@ public abstract class User {
         return "----------- Bill -----------\n" + newBP.getName() + "\nOperation date: " + timeStamp.format(newP.getDateOperation().getTime()) + "\nAmount paid: " + newP.getPay() + "\n----------------------------";
     }
 
+    /**
+     * Searches for a bibliographic product in the user's list based on its ID.
+     *
+     * <br>pre:<br> The ID is not null.
+     * <br>post:<br> If a bibliographic product with the specified ID is found, it is returned; otherwise, null is returned.
+     *
+     * @param id The ID of the bibliographic product to search for.
+     * @return The bibliographic product with the specified ID, or null if it is not found.
+     */
     public BibliographicProduct searchBP(String id){
         BibliographicProduct product = null;
         boolean search = true;
@@ -75,6 +102,12 @@ public abstract class User {
         return product;
     }
 
+    /**
+     * Orders the user's bibliographic products based on the publication date.
+     *
+     * <br>pre:<br> -
+     * <br>post:<br> The user's bibliographic products are ordered based on the publication date in ascending order.
+     */
     public void orderBP(){
         boolean change = false;
         for (int i=0; i<bp.size()-1&&!change; i++) {
@@ -92,6 +125,14 @@ public abstract class User {
         }
     }
 
+    /**
+     * Generates a library structure with the user's bibliographic products.
+     *
+     * <br>pre:<br> -
+     * <br>post:<br> A library structure is generated with the user's bibliographic products ordered by publication date.
+     *
+     * @return A three-dimensional array representing the library structure.
+     */
     public String[][][] generateLibrary(){
         orderBP();
         int cont = 0;
@@ -110,6 +151,17 @@ public abstract class User {
         return library;
     }
 
+    /**
+     * Searches for a bibliographic product in the library structure based on its coordinates.
+     *
+     * <br>pre:<br> The coordinates (x, y, z) are within the valid range of the library structure.
+     * <br>post:<br> If a bibliographic product is found at the specified coordinates, its ID is returned; otherwise, "___" is returned.
+     *
+     * @param x The x-coordinate of the bibliographic product in the library structure.
+     * @param y The y-coordinate of the bibliographic product in the library structure.
+     * @param z The z-coordinate of the bibliographic product in the library structure.
+     * @return The ID of the bibliographic product at the specified coordinates, or "___" if it is not found.
+     */
     public String searchBP(int x, int y, int z){
         String idBP = "___";
         boolean search = (z<library.length)&&(x<library[0].length)&&(y<library[0][0].length)?true:false;
@@ -126,6 +178,15 @@ public abstract class User {
         return idBP;
     }
 
+    /**
+     * Cancels the subscription for a bibliographic product.
+     *
+     * <br>pre:<br> The IDM is not null.
+     * <br>post:<br> If a bibliographic product with the specified ID is found, it is removed from the user's list; otherwise, no changes are made.
+     *
+     * @param idM The ID of the bibliographic product to cancel the subscription for.
+     * @return A string representation of the user's updated list of bibliographic products.
+     */
     public String cancelSuscription(String idM){
         String message = "-- Your bibliographic products --\n";
         boolean cancel = false;

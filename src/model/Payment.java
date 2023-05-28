@@ -7,6 +7,15 @@ public class Payment {
     private Calendar dateOperation;
     private double pay;
 
+    /**
+     * Creates a Payment object with the specified type, subtype, and payment amount.
+     * <br>pre:<br> None
+     * <br>post:<br> A Payment object is created with the specified type, subtype, and payment amount.
+     *
+     * @param typeBP   The type of the payment (e.g., credit card, cash, etc.).
+     * @param subtype  The subtype of the payment (e.g., Visa, Mastercard, etc.).
+     * @param pay      The payment amount.
+     */
     public Payment(String typeBP, String subtype,double pay){
         this.subtype = subtype;
         this.typeBP = typeBP;

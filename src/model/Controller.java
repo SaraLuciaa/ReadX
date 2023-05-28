@@ -14,7 +14,14 @@ public class Controller {
         this.payments = new ArrayList<Payment>();
     }
 
-    // -------- Automatically generate objects --------
+    /**
+     * Generates bibliographic objects and users.
+     *
+     * <br>pre:<br> None.
+     * <br>post:<br> Bibliographic objects and users are generated.
+     *
+     * @return A string representation of the generated objects.
+     */
     public String generateObjects(){
         // Bibliographic Products
         Calendar publication1 = Calendar.getInstance();
@@ -40,7 +47,15 @@ public class Controller {
         return toString();
     }
 
-    // ------------ Bibliographic Products ------------
+    /**
+     * Search for a bibliographic product by its ID.
+     *
+     * <br>pre:<br> None.
+     * <br>post:<br> The bibliographic product corresponding to the ID is returned, if any.
+     *
+     * @param id The product ID to search for.
+     * @return The bibliographic product corresponding to the ID, or null if not found.
+     */
     public BibliographicProduct searchBP(String id){
         BibliographicProduct product = null;
         boolean search = true;
@@ -53,6 +68,15 @@ public class Controller {
         return product;
     }
 
+    /**
+     * Verify the type of bibliographic product by its ID.
+     *
+     * <br>pre:<br> None.
+     * <br>post:<br> A message is returned indicating the bibliographic product type corresponding to the ID, if any.
+     *
+     * @param id The product ID to verify.
+     * @return A message indicating the type of bibliographic product, or a message of non-existence if not found.
+     */
     public String checkBP(String id){
         String message = "";
         BibliographicProduct product = searchBP(id);
@@ -68,6 +92,24 @@ public class Controller {
         return message;
     }
 
+    /**
+     * Create a book with the data provided.
+     *
+     * <br>pre:<br> There must be no bibliographic product with the ID provided.
+     * <br>post:<br> A new workbook is created and added to the product list.
+     *
+     * @param id The book ID.
+     * @param name The name of the book.
+     * @param url The URL of the book.
+     * @param pages The number of pages in the book.
+     * @param publication The publication date of the book.
+     * @param value The value of the book.
+     * @param pagesRead The number of pages read from the book.
+     * @param review The book review.
+     * @param copiesSold The number of copies sold of the book.
+     * @param genre The genre of the book.
+     * @return A message indicating if the book was successfully created or if a product already exists with the ID provided.
+     */
     public String createBP(String id, String name, String url, int pages, Calendar publication, double value, int pagesRead,String review, int copiesSold, int genre){
         String message = "";
         if(searchBP(id)==null){
@@ -81,6 +123,24 @@ public class Controller {
         return message;
     }
 
+    /**
+     * Create a magazine with the data provided.
+     *
+     * <br>pre:<br> There must be no bibliographic product with the ID provided.
+     * <br>post:<br> A new magazine is created and added to the product list.
+     *
+     * @param id The magazine ID.
+     * @param name The name of the magazine.
+     * @param url The URL of the magazine.
+     * @param pages The number of pages of the magazine.
+     * @param publication The publication date of the magazine.
+     * @param value The value of the magazine.
+     * @param pagesRead The number of pages read from the magazine.
+     * @param category The magazine category.
+     * @param periodicityEmission The periodicity of issue of the magazine.
+     * @param activeSubscriptions The number of active magazine subscriptions.
+     * @return A message indicating whether the magazine was successfully created or whether a product already exists with the ID provided.
+     */
     public String createBP(String id, String name, String url, int pages, Calendar publication, double value, int pagesRead, int category, String periodicityEmission, int activeSubscriptions){
         String message = "";
         if(searchBP(id)==null){
@@ -94,6 +154,24 @@ public class Controller {
         return message;
     }
 
+    /**
+     * Updates the data in a book.
+     *
+     * <br>pre:<br> There must be a book with the ID provided.
+     * <br>post:<br> The data of the book corresponding to the ID is updated.
+     *
+     * @param id The book ID to update.
+     * @param name The new name of the book.
+     * @param url The new URL of the book.
+     * @param pages The new number of pages in the book.
+     * @param publication The new publication date of the book.
+     * @param value The new value of the book.
+     * @param pagesRead The new number of pages read from the book.
+     * @param review The new book review.
+     * @param copiesSold The new number of copies sold of the book.
+     * @param genre The new genre of the book.
+     * @return A message indicating the initial and updated data of the book.
+     */
     public String updateBP(String id, String name, String url, int pages, Calendar publication, double value, int pagesRead,String review, int copiesSold, int genre){
         Book product = (Book) searchBP(id);
         String message = "-----Initial data-----\n" + product.toString() + "\n------------------------\n";
@@ -102,6 +180,24 @@ public class Controller {
         return message;
     }
 
+    /**
+     * Updates the data of a magazine.
+     *
+     * <br>pre:<br> There must be a magazine with the ID provided.
+     * <br>post:<br> The data of the magazine corresponding to the ID is updated.
+     *
+     * @param id The magazine ID to update.
+     * @param name The new name of the magazine.
+     * @param url The new URL of the magazine.
+     * @param pages The new number of pages of the magazine.
+     * @param publication The magazine's new publication date.
+     * @param value The new value of the magazine.
+     * @param pagesRead The new number of pages read from the magazine.
+     * @param category The new category of the magazine.
+     * @param periodicityEmission The new issue periodicity of the magazine.
+     * @param activeSubscriptions The new number of active magazine subscriptions.
+     * @return A message indicating the initial and updated data of the magazine.
+     */
     public String updateBP(String id, String name, String url, int pages, Calendar publication, double value, int pagesRead, int category, String periodicityEmission, int activeSubscriptions){
         Magazine product = (Magazine) searchBP(id);
         String message = "-----Initial data-----\n" + product.toString();
@@ -110,6 +206,15 @@ public class Controller {
         return message;
     }
 
+    /**
+     * Delete a bibliographic product by its ID.
+     *
+     * <br>pre:<br> There must be a bibliographic product with the ID provided.
+     * <br>post:<br> The bibliographic product corresponding to the ID is deleted and the associated subscriptions are cancelled.
+     *
+     * @param id The product ID to remove.
+     * @return A message indicating if the product was successfully removed or if no product was found with the ID provided.
+     */
     public String removeBP(String id){
         String message = "";
         if(searchBP(id)!=null){
@@ -127,6 +232,14 @@ public class Controller {
         return message;
     }
 
+    /**
+     * Returns a string representation of the objects in the system.
+     *
+     * <br>pre:<br> None.
+     * <br>post:<br> Returns a string representation of the bibliographic products and users in the system.
+     *
+     * @return A string representation of the objects in the system.
+     */
     public String toString(){
         String message = "---------------------------------";
         for(int i=0; i<products.size(); i++){
@@ -138,15 +251,42 @@ public class Controller {
         return message;
     }
 
+    /**
+     * Returns the string representation of the genre at the given index.
+     *
+     * <br>pre:<br> None.
+     * <br>post:<br> Returns the string representation of the genre at the given index.
+     *
+     * @param i The index of the genre.
+     * @return The string representation of the genre at the given index.
+     */
     public String showGenre(int i){
         return Genre.values()[i].toString();
     }
 
+    /**
+     * Returns the string representation of the category at the given index.
+     *
+     * <br>pre:<br> None.
+     * <br>post:<br> Returns the string representation of the category at the given index.
+     *
+     * @param i The index of the category.
+     * @return The string representation of the category at the given index.
+     */
     public String showCategory(int i){
         return Category.values()[i].toString();
     }
 
     // --------------------- Users ---------------------
+    /**
+     * Searches for a user by their ID.
+     *
+     * <br>pre:<br> None.
+     * <br>post:<br> Returns the user with the matching ID, if found.
+     *
+     * @param id The ID of the user to search for.
+     * @return The user with the matching ID, or null if not found.
+     */
     public User searchUser(String id){
         User user = null;
         boolean search = true;
@@ -159,10 +299,30 @@ public class Controller {
         return user;
     }
 
+    /**
+     * Checks if a user with the given ID exists.
+     *
+     * <br>pre:<br> None.
+     * <br>post:<br> Returns true if a user with the given ID exists, false otherwise.
+     *
+     * @param id The ID of the user to check.
+     * @return True if a user with the given ID exists, false otherwise.
+     */
     public boolean existUser(String id){
         return searchUser(id)!=null?true:false;
     }
 
+    /**
+     * Creates a new user with the given type, name, and ID.
+     *
+     * <br>pre:<br> There should not be an existing user with the provided ID.
+     * <br>post:<br> Creates a new user and adds it to the user list.
+     *
+     * @param type The type of the user (1 for Regular, 2 for Premium).
+     * @param name The name of the user.
+     * @param id The ID of the user.
+     * @return A message indicating if the user was created successfully or if a user with the entered ID already exists.
+     */
     public String createUser(int type, String name, String id){
         String message = "";
         User newU = searchUser(id);
@@ -182,6 +342,17 @@ public class Controller {
     }
 
     // -- Purchase of books or magazine subscriptions --
+    /**
+     * Performs the purchase of books or magazine subscriptions.
+     *
+     * <br>pre:<br> The user exists.
+     * <br>post:<br> The purchase is made, and the corresponding messages are returned.
+     *
+     * @param type The type of the purchase (1 for book, 2 for magazine).
+     * @param idUser The ID of the user making the purchase.
+     * @param idBP The ID of the bibliographic product being purchased.
+     * @return The message indicating the status of the purchase.
+     */
     public String buyBP(int type, String idUser, String idBP){
         User user = searchUser(idUser);
         String message = "";
@@ -211,6 +382,17 @@ public class Controller {
     }
 
     // ----------- Simulate reading session ------------
+    /**
+     * Simulates a reading session.
+     *
+     * <br>pre:<br>  The user and bibliographic product exist, and the page is valid.
+     * <br>post:<br>  The reading session is simulated, and the corresponding message is returned.
+     *
+     * @param page The page number to start the reading session.
+     * @param idBP The ID of the bibliographic product being read.
+     * @param idUser The ID of the user performing the reading session.
+     * @return The message indicating the progress of the reading session.
+     */
     public String simulateReadingSession(int page, String idBP, String idUser){
         String message = "";
         User user = searchUser(idUser);
@@ -228,6 +410,16 @@ public class Controller {
     } 
     
     // -------------- Library presentation -------------
+    /**
+     * Displays the user's library.
+     *
+     * <br>pre:<br> The user exists.
+     * <br>post:<br>  The user's library is displayed.
+     *
+     * @param idUser The ID of the user.
+     * @param page The page number of the library to display.
+     * @return The message displaying the user's library.
+     */
     public String goToMyLibrary(String idUser, int page){
         User user = searchUser(idUser); 
         String message = "   |  0  |  1  |  2  |  3  |  4 ";
@@ -244,6 +436,17 @@ public class Controller {
         return message;
     }
 
+    /**
+     * Goes to the simulation based on user input.
+     *
+     * <br>pre:<br> The user exists, and the input and page number are valid.
+     * <br>post:<br> The simulation is displayed.
+     *
+     * @param idUser The ID of the user.
+     * @param input The input containing the bibliographic product ID.
+     * @param page The page number to display in the simulation.
+     * @return The simulation message.
+     */
     public String goToSimulation(String idUser, String input, int page){
         User user = searchUser(idUser); 
 		String[] idBP = input.split(",");
@@ -259,6 +462,16 @@ public class Controller {
 	}
 
     // -------------- Cancel suscription ---------------
+    /**
+     * Cancels a subscription.
+     *
+     * <br>pre:<br> The user and magazine exist.
+     * <br>post:<br>  The subscription is canceled, and the corresponding message is returned.
+     *
+     * @param idUser The ID of the user.
+     * @param idM The ID of the magazine subscription to cancel.
+     * @return The cancellation message.
+     */
     public String cancelSuscription(String idUser, String idM){
         String message = "";
         User user = searchUser(idUser);
@@ -273,6 +486,14 @@ public class Controller {
     }
 
     // -------------- Generate reports -----------------
+    /**
+     * Calculates the total number of pages read.
+     *
+     * <br>pre:<br> None.
+     * <br>post:<br> The total number of pages read is returned.
+     *
+     * @return The message displaying the total number of pages read.
+     */
     public String totalPagesRead(){
         int contB = 0;
         int contM = 0;
@@ -287,6 +508,14 @@ public class Controller {
         return "---- Cumulative number of pages read ---\nBook: " + contB + "\nMagazine: " + contM + "\nTotal: " + (contM+contB); 
     }
 
+    /**
+     * Calculates the total number of pages read for each genre and category of products.
+     * 
+     * <br>pre: The 'products' list is not null.
+     * <br>post: Returns a formatted string displaying the most read category for books and the most read genre for magazines.
+     * 
+     * @return A string containing the most read category for books and the most read genre for magazines.
+     */
     public String totalPagesReadGenreCategory(){
         int[] genre = new int[3];
         int[] category = new int[3];
@@ -331,6 +560,15 @@ public class Controller {
                "MAGAZINE | Most read genre:    " + genreMax + " - " +  maxM + " pages read.\n"; 
     }
 
+    /**
+     * Retrieves the top 5 most read books or magazines based on the specified type.
+     * 
+     * <br>pre: The 'products' list is not null.
+     * <br>post: Returns a string listing the top 5 most read books or magazines.
+     * 
+     * @param typeBP An integer representing the type of bibliographic product (1 for books, 2 for magazines).
+     * @return A string listing the top 5 most read books or magazines.
+     */
     public String top5(int typeBP){
         String message = "Top 5 most read " + (typeBP==1?"books":"magazines");
         ArrayList<BibliographicProduct> bp = new ArrayList<BibliographicProduct>();
@@ -371,6 +609,15 @@ public class Controller {
         return message;
     }
 
+    /**
+     * Calculates the total sales or subscriptions based on the specified option.
+     * 
+     * <br>pre: The 'users' list is not null.
+     * <br>post: Returns an array of doubles representing the total sales or subscriptions.
+     * 
+     * @param opt An integer representing the option to calculate total sales (1) or subscriptions (2).
+     * @return An array of doubles representing the total sales or subscriptions.
+     */
     public double[] totalSalesSuscription(int opt){
         double[] totalSales = new double[3]; 
         double[] totalSuscr = new double[3];
@@ -407,6 +654,14 @@ public class Controller {
         return totalS;
     }
 
+    /**
+     * Generates a sales report for books, displaying the number of copies sold for each genre.
+     * 
+     * <br>pre: The 'products' list is not null.
+     * <br>post: Returns a formatted string displaying the sales report by genre for books.
+     * 
+     * @return A string containing the sales report by genre for books.
+     */
     public String bookCopiesSold(){
         String message = "-------------- Sales report by genre -------------";
         int[] genre = new int[3];
@@ -428,6 +683,14 @@ public class Controller {
         return message;
     }
 
+    /**
+     * Generates a subscriptions report for magazines, displaying the number of active subscriptions for each category.
+     * 
+     * <br>pre: The 'products' list is not null.
+     * <br>post: Returns a formatted string displaying the subscriptions report by category for magazines.
+     * 
+     * @return A string containing the subscriptions report by category for magazines.
+     */
     public String magazineSuscriptionActive(){
         String message = "-------- Subscriptions report by category --------";
         int[] category = new int[3];
@@ -449,6 +712,11 @@ public class Controller {
         return message;
     }
 
+    /**
+     * Returns a random promotional message.
+     * 
+     * @return A randomly selected promotional message.
+     */
     public String showAdd(){
         String[] message = {"****** Subscribe to Combo Plus and get Disney+ and Star+ at an incredible price! **************", "****** Now your pets have a favorite app: Laika. The best products for your furry one. ********", "****** It's our anniversary! Visit your nearest Exito and be surprised with the best offers. **"};
         Random random = new Random();
@@ -456,6 +724,12 @@ public class Controller {
         return message[position];
     }
 
+    /**
+     * Returns a promotional message if the user is a regular user.
+     * 
+     * @param idUser The ID of the user.
+     * @return A promotional message if the user is a regular user; otherwise, an empty string.
+     */
     public String showAdd(String idUser){
         return ((searchUser(idUser)!=null)&&(searchUser(idUser) instanceof Regular))?showAdd():"";
     }
