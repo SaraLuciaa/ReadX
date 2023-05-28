@@ -65,7 +65,6 @@ public class Regular extends User{
      * <br>post:<br> The subscription to the magazine with the specified ID is canceled and the available slots for magazines are increased.
      *
      * @param idM The ID of the magazine subscription to cancel.
-     * @return A message indicating the success or failure of the subscription cancellation.
      */
     public void cancelSuscription(String idM) {
         maxMagazine++;
