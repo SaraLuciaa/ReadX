@@ -185,20 +185,14 @@ public abstract class User {
      * <br>post:<br> If a bibliographic product with the specified ID is found, it is removed from the user's list; otherwise, no changes are made.
      *
      * @param idM The ID of the bibliographic product to cancel the subscription for.
-     * @return A string representation of the user's updated list of bibliographic products.
      */
-    public String cancelSuscription(String idM){
-        String message = "-- Your bibliographic products --\n";
+    public void cancelSuscription(String idM){
         boolean cancel = false;
         for(int i=0; i<bp.size(); i++){
             if(bp.get(i).getId().equalsIgnoreCase(idM)&&!cancel){
                 bp.remove(i);
                 cancel = true;
-            } else {
-                message += bp.get(i).getId() + "  " + bp.get(i).getName();
-            }            
+            }          
         }
-        message += "---------------------------------";
-        return message;
     }
 }

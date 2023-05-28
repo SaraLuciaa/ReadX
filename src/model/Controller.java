@@ -478,7 +478,8 @@ public class Controller {
         Magazine magazine = user.searchBP(idM)!=null&&user.searchBP(idM) instanceof Magazine?(Magazine) user.searchBP(idM):null;
         if(user!=null&&magazine!=null){
             magazine.setActiveSubscriptions(magazine.getActiveSubscriptions()-1);
-            message = "The subscription has been canceled successfully\n" + user.cancelSuscription(idM);
+            user.cancelSuscription(idM);
+            message = "The subscription has been canceled successfully\n";
         } else {
             message = "ERROR! Check the magazine ID.";
         }

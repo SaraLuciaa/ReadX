@@ -67,8 +67,8 @@ public class Regular extends User{
      * @param idM The ID of the magazine subscription to cancel.
      * @return A message indicating the success or failure of the subscription cancellation.
      */
-    public String cancelSuscription(String idM) {
+    public void cancelSuscription(String idM) {
         maxMagazine++;
-        return super.cancelSuscription(idM);
+        super.cancelSuscription(idM);
     }
 }

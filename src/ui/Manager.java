@@ -156,7 +156,7 @@ public class Manager {
 			value = l.nextInt();
 		}
 		System.out.print("Number of pages read: ");
-		long pagesRead = l.nextInt();
+		long pagesRead = l.nextLong();
 		while((pagesRead<0&&func==1)||(pagesRead<-1&&func==2)){
 			System.out.println("The number of pages read cannot be less than zero. Try again");
 			pagesRead = l.nextLong();
