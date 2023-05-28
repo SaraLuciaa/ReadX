@@ -175,7 +175,7 @@ public class Controller {
     public String updateBP(String id, String name, String url, int pages, Calendar publication, double value, int pagesRead,String review, int copiesSold, int genre){
         Book product = (Book) searchBP(id);
         String message = "-----Initial data-----\n" + product.toString() + "\n------------------------\n";
-        product.updateBook(name, url, pages, publication, value, pagesRead, review, copiesSold, genre);
+        product.updateBP(name, url, pages, publication, value, pagesRead, review, copiesSold, genre);
         message += "-----Updated data-----\n" + product.toString() + "\n------------------------\n";
         return message;
     }
@@ -201,7 +201,7 @@ public class Controller {
     public String updateBP(String id, String name, String url, int pages, Calendar publication, double value, int pagesRead, int category, String periodicityEmission, int activeSubscriptions){
         Magazine product = (Magazine) searchBP(id);
         String message = "-----Initial data-----\n" + product.toString();
-        product.updateMagazine(name, url, pages, publication, value, pagesRead, category, periodicityEmission, activeSubscriptions);
+        product.updateBP(name, url, pages, publication, value, pagesRead, category, periodicityEmission, activeSubscriptions);
         message += "\n-----Updated data-----\n" + product.toString() + "\n------------------------\n";   
         return message;
     }
@@ -505,7 +505,7 @@ public class Controller {
                 contM+=pagesRead;
             }
         }
-        return "---- Cumulative number of pages read ---\nBook: " + contB + "\nMagazine: " + contM + "\nTotal: " + (contM+contB); 
+        return "--------- Cumulative number of pages read --------\nBook: " + contB + "\nMagazine: " + contM + "\nTotal: " + (contM+contB) + "\n--------------------------------------------------";
     }
 
     /**
@@ -556,8 +556,10 @@ public class Controller {
                 categoryMax = Category.values()[i].toString();
             }
         }
-        return "BOOK     | Most read category: " + categoryMax + " - " +  maxB + " pages read.\n"+ 
-               "MAGAZINE | Most read genre:    " + genreMax + " - " +  maxM + " pages read.\n"; 
+        return "--------------------------------------------------\n" +
+               "BOOK     | Most read category: " + categoryMax + " - " +  maxB + " pages read.\n"+ 
+               "MAGAZINE | Most read genre:    " + genreMax + " - " +  maxM + " pages read.\n" +
+               "--------------------------------------------------"; 
     }
 
     /**
@@ -570,7 +572,7 @@ public class Controller {
      * @return A string listing the top 5 most read books or magazines.
      */
     public String top5(int typeBP){
-        String message = "Top 5 most read " + (typeBP==1?"books":"magazines");
+        String message = typeBP==1?"------------ Top 5 most read books ---------------":"------------ Top 5 most read magazines -----------";
         ArrayList<BibliographicProduct> bp = new ArrayList<BibliographicProduct>();
         for(BibliographicProduct product : products){
             if(typeBP==1&&product instanceof Book){
@@ -606,6 +608,7 @@ public class Controller {
             BibliographicProduct prod = top5.get(i);
             message += "\n" +(i+1) + ". " + prod.getName() + " - " + prod.getPagesRead() + " pages read.";
         }
+        message += "\n--------------------------------------------------";
         return message;
     }
 

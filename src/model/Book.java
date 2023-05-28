@@ -81,7 +81,7 @@ public class Book extends BibliographicProduct{
      * @param copiesSold    the new number of copies sold for the book.
      * @param genre         the new genre of the book.
      */
-    public void updateBook(String name, String url, int pages, Calendar publication, double value, int pagesRead, String review, int copiesSold, int genre){
+    public void updateBP(String name, String url, int pages, Calendar publication, double value, int pagesRead, String review, int copiesSold, int genre){
         super.updateBP(name, url, pages, publication, value, pagesRead);
         this.review = review.equals("-1")|review.equals("")?this.review:review;
         this.copiesSold = copiesSold==-1?this.copiesSold:copiesSold;

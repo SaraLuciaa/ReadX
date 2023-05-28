@@ -83,7 +83,7 @@ public class Magazine extends BibliographicProduct {
      * @param periodicityEmission  the periodicity of emission of the magazine ("-1" or empty string if unchanged)
      * @param activeSubscriptions  the number of active subscriptions (-1 if unchanged)
      */
-    public void updateMagazine(String name, String url, int pages, Calendar publication, double value, int pagesRead, int category, String periodicityEmission, int activeSubscriptions){
+    public void updateBP(String name, String url, int pages, Calendar publication, double value, int pagesRead, int category, String periodicityEmission, int activeSubscriptions){
         super.updateBP(name, url, pages, publication, value, pagesRead);
         this.category = category==-1?this.category:Category.values()[category-1];
         this.periodicityEmission = periodicityEmission.equals("-1")|periodicityEmission.equals("")?this.periodicityEmission:periodicityEmission;
