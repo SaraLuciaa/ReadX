@@ -4,7 +4,7 @@ import java.util.Calendar;
 public class Magazine extends BibliographicProduct {
     private Category category; 
     private String periodicityEmission;
-    private int activeSubscriptions;
+    private long activeSubscriptions;
 
     /**
      * Constructs a Magazine object with the specified parameters.
@@ -28,7 +28,7 @@ public class Magazine extends BibliographicProduct {
      * @param periodicityEmission the periodicity of the magazine's emission
      * @param activeSubscriptions the number of active subscriptions for the magazine
      */
-    public Magazine(String id, String name, String url, int pages, Calendar publication, double value, int pagesRead, int category, String periodicityEmission, int activeSubscriptions) {
+    public Magazine(String id, String name, String url, int pages, Calendar publication, double value, long pagesRead, int category, String periodicityEmission, long activeSubscriptions) {
         super(id, name, url, pages, publication, value, pagesRead);
         this.category = Category.values()[category-1];
         this.periodicityEmission = periodicityEmission;
@@ -47,10 +47,10 @@ public class Magazine extends BibliographicProduct {
     public void setPeriodicityEmission(String periodicityEmission) {
         this.periodicityEmission = periodicityEmission;
     }
-    public int getActiveSubscriptions() {
+    public long getActiveSubscriptions() {
         return activeSubscriptions;
     }
-    public void setActiveSubscriptions(int activeSubscriptions) {
+    public void setActiveSubscriptions(long activeSubscriptions) {
         this.activeSubscriptions = activeSubscriptions;
     }
 
@@ -83,7 +83,7 @@ public class Magazine extends BibliographicProduct {
      * @param periodicityEmission  the periodicity of emission of the magazine ("-1" or empty string if unchanged)
      * @param activeSubscriptions  the number of active subscriptions (-1 if unchanged)
      */
-    public void updateBP(String name, String url, int pages, Calendar publication, double value, int pagesRead, int category, String periodicityEmission, int activeSubscriptions){
+    public void updateBP(String name, String url, int pages, Calendar publication, double value, long pagesRead, int category, String periodicityEmission, long activeSubscriptions){
         super.updateBP(name, url, pages, publication, value, pagesRead);
         this.category = category==-1?this.category:Category.values()[category-1];
         this.periodicityEmission = periodicityEmission.equals("-1")|periodicityEmission.equals("")?this.periodicityEmission:periodicityEmission;

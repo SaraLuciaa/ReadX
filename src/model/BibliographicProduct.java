@@ -9,7 +9,7 @@ public abstract class BibliographicProduct{
     private int pages;
     private Calendar publication;
     private double value;
-    private int pagesRead;
+    private long pagesRead;
 
     /**
      * Constructs a BibliographicProduct object with the given parameters.
@@ -25,7 +25,7 @@ public abstract class BibliographicProduct{
      * @param value       the value of the product
      * @param pagesRead   the number of pages already read
      */
-    public BibliographicProduct(String id, String name, String url,int pages, Calendar publication, double value, int pagesRead) {
+    public BibliographicProduct(String id, String name, String url,int pages, Calendar publication, double value, long pagesRead) {
         this.id = id;
         this.name = name;
         this.url = url;
@@ -71,10 +71,10 @@ public abstract class BibliographicProduct{
     public void setValue(double value) {
         this.value = value;
     }
-    public int getPagesRead() {
+    public long getPagesRead() {
         return pagesRead;
     }
-    public void setPagesRead(int pagesRead) {
+    public void setPagesRead(long pagesRead) {
         this.pagesRead = pagesRead;
     }
 
@@ -104,7 +104,7 @@ public abstract class BibliographicProduct{
      * @param value      the new value of the product
      * @param pagesRead  the new number of pages already read
      */
-    public void updateBP(String name, String url,int pages, Calendar publication, double value, int pagesRead){
+    public void updateBP(String name, String url,int pages, Calendar publication, double value, long pagesRead){
         this.name = name.equals("-1")|name.equals("")?this.name:name;
         this.url = id.equals("-1")|url.equals("")?this.url:url;
         this.pages = pages==-1?this.pages:pages;

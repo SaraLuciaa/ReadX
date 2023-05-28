@@ -110,7 +110,7 @@ public class Controller {
      * @param genre The genre of the book.
      * @return A message indicating if the book was successfully created or if a product already exists with the ID provided.
      */
-    public String createBP(String id, String name, String url, int pages, Calendar publication, double value, int pagesRead,String review, int copiesSold, int genre){
+    public String createBP(String id, String name, String url, int pages, Calendar publication, double value, long pagesRead,String review, long copiesSold, int genre){
         String message = "";
         if(searchBP(id)==null){
             Book newB = new Book(id, name, url, pages, publication, value, pagesRead, review, copiesSold, genre);
@@ -141,7 +141,7 @@ public class Controller {
      * @param activeSubscriptions The number of active magazine subscriptions.
      * @return A message indicating whether the magazine was successfully created or whether a product already exists with the ID provided.
      */
-    public String createBP(String id, String name, String url, int pages, Calendar publication, double value, int pagesRead, int category, String periodicityEmission, int activeSubscriptions){
+    public String createBP(String id, String name, String url, int pages, Calendar publication, double value, long pagesRead, int category, String periodicityEmission, long activeSubscriptions){
         String message = "";
         if(searchBP(id)==null){
             Magazine newM = new Magazine(id, name, url, pages, publication, value, pagesRead, category, periodicityEmission, activeSubscriptions);
@@ -172,7 +172,7 @@ public class Controller {
      * @param genre The new genre of the book.
      * @return A message indicating the initial and updated data of the book.
      */
-    public String updateBP(String id, String name, String url, int pages, Calendar publication, double value, int pagesRead,String review, int copiesSold, int genre){
+    public String updateBP(String id, String name, String url, int pages, Calendar publication, double value, long pagesRead,String review, long copiesSold, int genre){
         Book product = (Book) searchBP(id);
         String message = "-----Initial data-----\n" + product.toString() + "\n------------------------\n";
         product.updateBP(name, url, pages, publication, value, pagesRead, review, copiesSold, genre);
@@ -198,7 +198,7 @@ public class Controller {
      * @param activeSubscriptions The new number of active magazine subscriptions.
      * @return A message indicating the initial and updated data of the magazine.
      */
-    public String updateBP(String id, String name, String url, int pages, Calendar publication, double value, int pagesRead, int category, String periodicityEmission, int activeSubscriptions){
+    public String updateBP(String id, String name, String url, int pages, Calendar publication, double value, long pagesRead, int category, String periodicityEmission, long activeSubscriptions){
         Magazine product = (Magazine) searchBP(id);
         String message = "-----Initial data-----\n" + product.toString();
         product.updateBP(name, url, pages, publication, value, pagesRead, category, periodicityEmission, activeSubscriptions);
@@ -495,10 +495,10 @@ public class Controller {
      * @return The message displaying the total number of pages read.
      */
     public String totalPagesRead(){
-        int contB = 0;
-        int contM = 0;
+        long contB = 0;
+        long contM = 0;
         for(int i=0; i<products.size(); i++){
-            int pagesRead = products.get(i).getPagesRead();
+            long pagesRead = products.get(i).getPagesRead();
             if(products.get(i) instanceof Book){
                 contB+=pagesRead;
             } else if(products.get(i) instanceof Magazine){
@@ -517,10 +517,10 @@ public class Controller {
      * @return A string containing the most read category for books and the most read genre for magazines.
      */
     public String totalPagesReadGenreCategory(){
-        int[] genre = new int[3];
-        int[] category = new int[3];
+        long[] genre = new long[3];
+        long[] category = new long[3];
         for(int i=0; i<products.size(); i++){
-            int pagesRead = products.get(i).getPagesRead();
+            long pagesRead = products.get(i).getPagesRead();
             if(products.get(i) instanceof Book){
                 Book product = (Book) products.get(i);
                 if(product.getGenre()==Genre.SCIENCE_FICTION){
@@ -542,9 +542,9 @@ public class Controller {
             }
         }
 
-        int maxB = genre[0]; 
+        long maxB = genre[0]; 
         String genreMax = Genre.values()[0].toString();
-        int maxM = category[0]; 
+        long maxM = category[0]; 
         String categoryMax = Genre.values()[0].toString();
         for (int i = 1; i < genre.length; i++) {
             if (genre[i] > maxB) {
@@ -667,7 +667,7 @@ public class Controller {
      */
     public String bookCopiesSold(){
         String message = "-------------- Sales report by genre -------------";
-        int[] genre = new int[3];
+        long[] genre = new long[3];
         for(int i=0; i<products.size(); i++){
             if(products.get(i) instanceof Book){
                 Book product = (Book) products.get(i);
@@ -696,7 +696,7 @@ public class Controller {
      */
     public String magazineSuscriptionActive(){
         String message = "-------- Subscriptions report by category --------";
-        int[] category = new int[3];
+        long[] category = new long[3];
         for(int i=0; i<products.size(); i++){
             if(products.get(i) instanceof Magazine){
                 Magazine product = (Magazine) products.get(i);

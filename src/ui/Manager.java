@@ -156,10 +156,10 @@ public class Manager {
 			value = l.nextInt();
 		}
 		System.out.print("Number of pages read: ");
-		int pagesRead = l.nextInt();
+		long pagesRead = l.nextInt();
 		while((pagesRead<0&&func==1)||(pagesRead<-1&&func==2)){
 			System.out.println("The number of pages read cannot be less than zero. Try again");
-			pagesRead = l.nextInt();
+			pagesRead = l.nextLong();
 		}
 		l.nextLine();
 		if(type==1){
@@ -170,11 +170,11 @@ public class Manager {
 				review = l.nextLine();
 			}
 			System.out.print("Number of copies sold: ");
-			int copiesSold = l.nextInt();
+			long copiesSold = l.nextLong();
 			l.nextLine();
 			while((copiesSold<0&&func==1)||(copiesSold<-1&&func==2)){
 				System.out.println("The number of copies sold cannot be less than zero. Try again");
-				copiesSold = l.nextInt();
+				copiesSold = l.nextLong();
 			}
 			System.out.print("Genre:\n");
 			for(int i=0; i<3; i++){
@@ -198,10 +198,10 @@ public class Manager {
 			System.out.print("Periodicity of emission: ");
 			String periodicityEmission = l.nextLine();
 			System.out.println("Number of active subscriptions: ");
-			int activeSubscriptions = l.nextInt();
+			long activeSubscriptions = l.nextLong();
 			while((activeSubscriptions<0&&func==1)||(activeSubscriptions<-1&&func==2)){
 				System.out.println("The number of active subscriptions cannot be less than zero. Try again");
-				activeSubscriptions = l.nextInt();
+				activeSubscriptions = l.nextLong();
 			}
 			System.out.println("Category: ");
 			for(int i=0; i<3; i++){

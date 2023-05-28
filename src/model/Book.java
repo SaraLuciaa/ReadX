@@ -3,7 +3,7 @@ import java.util.Calendar;
 
 public class Book extends BibliographicProduct{
     private String review;
-    private int copiesSold;
+    private long copiesSold;
     private Genre genre;
 
     /**
@@ -23,7 +23,7 @@ public class Book extends BibliographicProduct{
      * @param copiesSold The number of copies sold for the book.
      * @param genre The genre of the book (represented as an integer).
     */
-    public Book(String id, String name, String url, int pages, Calendar publication, double value, int pagesRead, String review, int copiesSold, int genre) {
+    public Book(String id, String name, String url, int pages, Calendar publication, double value, long pagesRead, String review, long copiesSold, int genre) {
         super(id, name, url, pages, publication, value, pagesRead);
         this.review = review;
         this.copiesSold = copiesSold;
@@ -36,10 +36,10 @@ public class Book extends BibliographicProduct{
     public void setReview(String review) {
         this.review = review;
     }
-    public int getCopiesSold() {
+    public long getCopiesSold() {
         return copiesSold;
     }
-    public void setCopiesSold(int copiesSold) {
+    public void setCopiesSold(long copiesSold) {
         this.copiesSold = copiesSold;
     }
     public Genre getGenre() {
@@ -81,7 +81,7 @@ public class Book extends BibliographicProduct{
      * @param copiesSold    the new number of copies sold for the book.
      * @param genre         the new genre of the book.
      */
-    public void updateBP(String name, String url, int pages, Calendar publication, double value, int pagesRead, String review, int copiesSold, int genre){
+    public void updateBP(String name, String url, int pages, Calendar publication, double value, long pagesRead, String review, long copiesSold, int genre){
         super.updateBP(name, url, pages, publication, value, pagesRead);
         this.review = review.equals("-1")|review.equals("")?this.review:review;
         this.copiesSold = copiesSold==-1?this.copiesSold:copiesSold;
