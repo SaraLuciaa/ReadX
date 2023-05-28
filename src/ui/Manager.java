@@ -7,10 +7,16 @@ import model.Controller;
 public class Manager {
     private Controller readX;;
 
+	/**
+     * Constructs a Manager object and initializes the Controller.
+     */
     public Manager(){
         this.readX = new Controller();
     }
 
+	/**
+     * Displays the main menu and handles user input.
+     */
 	public void menu(){
 		Scanner l = new Scanner(System.in);
         boolean status = true;	
@@ -44,6 +50,11 @@ public class Manager {
 		}
 	}
 
+	/**
+     * Displays the menu for a user and handles user input.
+     *
+     * @param id the id of the user
+     */
 	public void menuUser(String id){
 		if(readX.existUser(id)){
 			boolean status = true;
@@ -84,6 +95,9 @@ public class Manager {
 		}
 	}
 
+	/**
+     * Creates a new user by taking input from the user.
+     */
 	public void createUser(){
 		Scanner l = new Scanner(System.in);
 		System.out.println("Type of user: 1.REGULAR 2.PREMIUM");
@@ -100,6 +114,9 @@ public class Manager {
 		System.out.println(readX.createUser(type, name, id));
 	}
 
+	/**
+     * Displays the menu for the ReadX manager and handles user input.
+     */
 	public void menuReadX(){
 		boolean status = true;
 		Scanner l = new Scanner(System.in);
@@ -132,6 +149,17 @@ public class Manager {
 		}
 	}
 
+	/**
+	 * Creates or updates a bibliographic product based on the specified parameters.
+	 * 
+	 * <br>pre:<br> The type, func, and id parameters must be valid.
+	 * 
+	 * <br>post:<br> A new bibliographic product is created or an existing one is updated with the provided information.
+	 * 
+	 * @param type The type of bibliographic product (1 for book, 2 for magazine)
+	 * @param func The function type (1 for create, 2 for update)
+	 * @param id The ID of the bibliographic product
+	 */
 	public void createupdateBP(int type, int func, String id){
 		Scanner l = new Scanner(System.in);
 		System.out.print("Name: ");
@@ -225,6 +253,11 @@ public class Manager {
 		}
 	}
 	
+	/**
+	 * Creates a new bibliographic product by gathering user input.
+	 * 
+	 * <br>post:<br> A new bibliographic product is created with the provided information.
+	 */
 	public void createBP(){
 		Scanner l = new Scanner(System.in);
 		System.out.println("Enter the number of the type of bibliographic product:    1.Book    2.Magazine");
@@ -243,6 +276,11 @@ public class Manager {
 		createupdateBP(type, 1, id);
 	}
 
+	/**
+	 * Updates an existing bibliographic product by gathering user input.
+	 * 
+	 * <br>post:<br> The existing bibliographic product is updated with the provided information.
+	 */
 	public void updateBP(){
 		Scanner l = new Scanner(System.in);
 		System.out.print("Id: ");
@@ -263,6 +301,11 @@ public class Manager {
 		}
 	}
 
+	/**
+	 * Removes a bibliographic product with the specified ID.
+	 * 
+	 * <br>post:<br> Show a message indicating the success or failure of the removal operation
+	 */
 	public void removeBP(){
 		Scanner l = new Scanner(System.in);
 		System.out.print("Id: ");
@@ -270,6 +313,16 @@ public class Manager {
 		System.out.println(readX.removeBP(id));
 	}
 	
+	/**
+	 * Buys a bibliographic product of the specified type for the given user.
+	 * 
+	 * <br>pre:<br> The type parameter must be valid.
+	 * 
+	 * <br>post:<br> The user purchases the bibliographic product of the specified type.
+	 * 
+	 * @param type The type of bibliographic product to buy (1 for book, 2 for magazine)
+	 * @param idUser The ID of the user making the purchase
+	 */
 	public void buyBP(int type, String idUser){
 		Scanner l = new Scanner(System.in);
 		System.out.print(type==1?"Book ID: ":"Magazine ID: ");
@@ -277,6 +330,13 @@ public class Manager {
 		System.out.println(readX.buyBP(type, idUser, idBP));
 	}
 
+	/**
+	 * Simulates a reading session for the specified bibliographic product and user.
+	 * 
+	 * <br>post:<br> The reading session is simulated for the specified bibliographic product and user.
+	 * 
+	 * @param idUser The ID of the user simulating the reading session
+	 */
 	public void simulateReadingSession(String idUser){
 		Scanner l = new Scanner(System.in);
 		System.out.print("Bibliographic Product ID: ");
@@ -284,6 +344,15 @@ public class Manager {
 		simulateReadingSession(1, idBP, idUser);
 	}
 
+	/**
+	 * Simulates a reading session for the specified page of the bibliographic product and user.
+	 * 
+	 * <br>post:<br> The reading session is simulated for the specified page of the bibliographic product and user.
+	 * 
+	 * @param page The page number to start the reading session from
+	 * @param idBP The ID of the bibliographic product
+	 * @param idUser The ID of the user simulating the reading session
+	 */
 	public void simulateReadingSession(int page, String idBP, String idUser){
 		Scanner l = new Scanner(System.in);
 		System.out.println(readX.simulateReadingSession(page, idBP, idUser));
@@ -302,6 +371,13 @@ public class Manager {
 		}
 	}
 
+	/**
+	 * Navigates to the user's library and allows interaction with the bibliographic products.
+	 * 
+	 * <br>post:<br> The user navigates to their library and can perform various actions.
+	 * 
+	 * @param idUser The ID of the user navigating the library
+	 */
 	public void goToMyLibrary(String idUser){
 		Scanner l = new Scanner(System.in);
 		int page = 0;
@@ -324,6 +400,11 @@ public class Manager {
 		}	
 	}
 
+	/**
+	 * Cancels a subscription to a magazine for the specified user.
+	 * 
+	 * @param idUser The ID of the user canceling the subscription
+	 */
 	public void cancelSuscription(String idUser){
 		Scanner l = new Scanner(System.in);
 		System.out.println("Magazine ID: ");
@@ -331,6 +412,11 @@ public class Manager {
 		System.out.println(readX.cancelSuscription(idUser, idM));
 	}
 
+	/**
+	 * Generates reports containing various statistics and information.
+	 * 
+	 * <br>post:<br> Reports containing various statistics and information are generated.
+	 */
 	public void generateReports(){
 		System.out.println(readX.totalPagesRead());
 		System.out.println(readX.totalPagesReadGenreCategory());
@@ -340,6 +426,11 @@ public class Manager {
 		System.out.println(readX.magazineSuscriptionActive());
 	}
 
+	/**
+	 * The main method of the Manager class. Executes the program.
+	 * 
+	 * @param args The command-line arguments
+	 */
 	public static void main(String[] args) {
 		Manager objManager = new Manager();
 		objManager.menu();
